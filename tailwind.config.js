@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    colors:{
+      // Using modern `rgb`
+      bg_primary: 'rgb(var(--color-bg_primary) / <alpha-value>)',
+      titles: 'rgb(var(--color-titles) / <alpha-value>)',
+
+    }
   },
   plugins: [],
 }
