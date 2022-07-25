@@ -5,7 +5,7 @@ import { Carousel } from 'react-responsive-carousel';
 import {getStrapiMedia} from '../../lib/media';
 import Link from 'next/link';
 
-export default function Home({hero,favorites}) {
+export default function Home({hero,favorites,housegood}) {
 
   return (
     <div className='absolute w-[100%] z-0 bg-bg_primary'>
@@ -158,7 +158,7 @@ export default function Home({hero,favorites}) {
                 <Button target={'/collection/all'} text={'get started'} />
             </div>
         </div>
-        <OurHouseGoods favorites={favorites}/>
+        <OurHouseGoods housegood={housegood}/>
     </div>
   )
 }
@@ -206,7 +206,9 @@ function Button({target,text}) {
 
 function HouseGood({slug,title,price,images}) {
     return (
-        <>
+        <div
+            className={`aspect-[1/1.25] bg-bg_primary`}
+        >
             <Link href={`/products/${slug}`}>
             <a className='relative block w-[100%] h-[88%]'>
                 <Image
@@ -224,60 +226,76 @@ function HouseGood({slug,title,price,images}) {
                 />
             </a>
             </Link>
-            <div className='flex justify-between px-[1rem] py-[.8rem] gap-[2rem]'>
+            <div className='flex justify-between px-[1rem] pt-[3rem] pb-[1rem] gap-[2rem]'>
                 <p className='text-[1.1rem]'>{title}</p>
                 <button className='uppercase flex gap-[1rem]'>
                     <span className='block text-titles font-[700]'>${price}</span>
                     <span className='block underline font-[700] text-titles'>Add to cart</span>
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 
-function OurHouseGoods({favorites}) {
+function OurHouseGoods({housegood}) {
     return (
-        <div className='grid grid-cols-[repeat(6, 1fr)] grid-rows-[repeat(9, 1fr)]'>
-            <div 
-                className='p-[1.4rem] border-r-[1px] border-b-[1px] border-solid border-border flex flex-col justify-between min-h-[250px] good1'>
-                <h1 className='text-[clamp(2rem,4vw,3rem)] font-[700] text-titles'>OUR HOUSEGOODS</h1>
-                <p>The intersection of form and function and stuff we like. Our Housegoods were designed for people who love things that are as beautiful as they are useful.</p> 
+        <>
+            <div className='grid grid-cols-1 md:grid-cols-3'>
+                <div 
+                    className='p-[1.4rem] border-r-[1px] border-b-[1px] border-solid border-border flex flex-col justify-between min-h-[250px]'>
+                    <h1 className='text-[clamp(2rem,4vw,3rem)] font-[700] text-titles'>OUR HOUSEGOODS</h1>
+                    <p>The intersection of form and function and stuff we like. Our Housegoods were designed for people who love things that are as beautiful as they are useful.</p> 
+                </div>
+                <div className='border-r-[1px] border-b-[1px] border-solid border-border'>
+                    <HouseGood 
+                        slug={housegood[0].attributes.slug} 
+                        title={housegood[0].attributes.title} 
+                        images={housegood[0].attributes.images}
+                        price={housegood[0].attributes.price}
+                    />
+                </div>
+                <div className='border-r-[1px] border-b-[1px] border-solid border-border'>
+                    <HouseGood 
+                        slug={housegood[1].attributes.slug} 
+                        title={housegood[1].attributes.title} 
+                        images={housegood[1].attributes.images}
+                        price={housegood[1].attributes.price}
+                    />         
+                </div>                  
             </div>
-            <div className={`border-r-[1px] border-b-[1px] h-[75vh] border-solid border-border bg-bg_primary good2`}>
-                <HouseGood 
-                    slug={favorites[0].attributes.slug} 
-                    title={favorites[0].attributes.title} 
-                    images={favorites[0].attributes.images}
-                />
+            <GalleryLayout housegood={housegood} start={2}/>
+            <GalleryLayout housegood={housegood} start={5}/>
+        </>
+    )       
+}
+
+function GalleryLayout({housegood,start}) {
+    return (
+        <div className='housegoods'>
+                <div className='housegood1 border-r-[1px] border-b-[1px] border-solid border-border'>
+                    <HouseGood 
+                        slug={housegood[start].attributes.slug} 
+                        title={housegood[start].attributes.title} 
+                        images={housegood[start].attributes.images}
+                        price={housegood[start].attributes.price}
+                    />
+                </div>
+                <div className='housegood2 border-r-[1px] border-b-[1px] border-solid border-border'>
+                    <HouseGood 
+                        slug={housegood[start+1].attributes.slug} 
+                        title={housegood[start+1].attributes.title} 
+                        images={housegood[start+1].attributes.images}
+                        price={housegood[start+1].attributes.price}
+                    />
+                </div>
+                <div className='housegood3 border-r-[1px] border-b-[1px] border-solid border-border'>
+                    <HouseGood 
+                        slug={housegood[start+2].attributes.slug} 
+                        title={housegood[start+2].attributes.title} 
+                        images={housegood[start+2].attributes.images}
+                        price={housegood[start+2].attributes.price}
+                    />
+                </div>
             </div>
-            <div className={`border-r-[1px] border-b-[1px] h-[75vh] border-solid border-border bg-bg_primary good3`}>
-                <HouseGood 
-                    slug={favorites[1].attributes.slug} 
-                    title={favorites[1].attributes.title} 
-                    images={favorites[1].attributes.images}
-                />
-            </div>            
-            <div className={`border-r-[1px] border-b-[1px] h-[75vh] border-solid border-border bg-bg_primary good4`}>
-                <HouseGood 
-                    slug={favorites[2].attributes.slug} 
-                    title={favorites[2].attributes.title} 
-                    images={favorites[2].attributes.images}
-                />
-            </div>            
-            <div className={`border-r-[1px] border-b-[1px] h-[75vh] border-solid border-border bg-bg_primary good5`}>
-                <HouseGood 
-                    slug={favorites[0].attributes.slug} 
-                    title={favorites[0].attributes.title} 
-                    images={favorites[0].attributes.images}
-                />
-            </div>            
-            <div className={`border-r-[1px] border-b-[1px] h-[105vh] border-solid border-border bg-bg_primary good6`}>
-                <HouseGood 
-                    slug={favorites[1].attributes.slug} 
-                    title={favorites[1].attributes.title} 
-                    images={favorites[1].attributes.images}
-                />
-            </div>            
-        </div>
     )   
 }
