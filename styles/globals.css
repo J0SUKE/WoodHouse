@@ -8,6 +8,7 @@
   :root {
     --color-bg_primary: 244 241 224;
     --color-titles: 50 30 30;
+    --color-border: 189 180 152;
     /* ... */
   }
 }
@@ -46,3 +47,11 @@ a {
 {
   cursor:grabbing;
 }
+
+
+.good1 { grid-area: 1 / 1 / 4 / 3; }
+.good2 { grid-area: 1 / 3 / 4 / 5; }
+.good3 { grid-area: 1 / 5 / 4 / 7; }
+.good4 { grid-area: 4 / 1 / 7 / 3; }
+.good5 { grid-area: 7 / 1 / 10 / 3; }
+.good6 { grid-area: 4 / 3 / 10 / 7; }
