@@ -89,6 +89,13 @@
   "resolved" "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz"
   "version" "1.1.4"
 
+"@savvywombat/tailwindcss-grid-areas@^2.1.0":
+  "integrity" "sha512-zELlncpf0x7rYElUkRZOGBoanmIOcMwXJ6/ZAiHXLKjlKVAFhHvDxOE6yCQVb38suE7gPWTwGNkYLhagt3xlsg=="
+  "resolved" "https://registry.npmjs.org/@savvywombat/tailwindcss-grid-areas/-/tailwindcss-grid-areas-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "lodash" "^4.17.21"
+
 "@swc/helpers@0.4.3":
   "integrity" "sha512-6JrF+fdUK2zbGpJIlN7G3v966PQjyx/dPt1T9km2wj+EUBqgrxCk3uX4Kct16MIm9gGxfKRcfax2hVf5jvlTzA=="
   "resolved" "https://registry.npmjs.org/@swc/helpers/-/helpers-0.4.3.tgz"
@@ -1818,7 +1825,7 @@
   "resolved" "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
 
-"tailwindcss@^3.1.6":
+"tailwindcss@^3.0.1", "tailwindcss@^3.1.6":
   "integrity" "sha512-7skAOY56erZAFQssT1xkpk+kWt2NrO45kORlxFPXUt3CiGsVPhH1smuH5XoDH6sGPXLyBv+zgCKA2HWBsgCytg=="
   "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.1.6.tgz"
   "version" "3.1.6"

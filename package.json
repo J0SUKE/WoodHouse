@@ -20,6 +20,7 @@
     "sass": "^1.54.0"
   },
   "devDependencies": {
+    "@savvywombat/tailwindcss-grid-areas": "^2.1.0",
     "autoprefixer": "^10.4.7",
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
