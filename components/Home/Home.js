@@ -167,6 +167,16 @@ export default function Home({hero,favorites,housegood}) {
                     layout='fill'
                     objectFit='cover'
                 />
+                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
+                    <Link href={'/'}>
+                        <a className='hidden md:block border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                <span className='arrow'></span>
+                            </button>
+                        </a>
+                    </Link>
+                </div>
             </div>
             <div className='relative aspect-[1/1.24]'>
                 <Image
@@ -175,6 +185,16 @@ export default function Home({hero,favorites,housegood}) {
                     layout='fill'
                     objectFit='cover'
                 />
+                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
+                    <Link href={'/'}>
+                        <a className='hidden md:block border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                <span className='arrow'></span>
+                            </button>
+                        </a>
+                    </Link>
+                </div>
             </div>
             <div className='relative aspect-[1/1.24]'>
                 <Image
@@ -183,7 +203,25 @@ export default function Home({hero,favorites,housegood}) {
                     layout='fill'
                     objectFit='cover'
                 />
+                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
+                    <Link href={'/'}>
+                        <a className='hidden md:block border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                <span className='arrow'></span>
+                            </button>
+                        </a>
+                    </Link>
+                </div>
             </div>
+        </div>
+        <div className='relative aspect-[3/1.5]'>
+            <Image
+                src={'/images/bottom.png'}
+                alt=''
+                layout='fill'
+                objectFit='cover'
+            />
         </div>
     </div>
   )

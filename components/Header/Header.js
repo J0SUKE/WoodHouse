@@ -1,27 +1,49 @@
 import HouseLogo from "../SVG/HouseLogo";
 import Link from 'next/link';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {throttle} from 'lodash';
 import React from "react";
+import { useRouter } from 'next/router'
 
 export default function Header() {
     
-    const [scroll,setScroll] = useState(false);
+    const router = useRouter();
+    const path = useRef(router.asPath);
+    const [scroll,setScroll] = useState(router.asPath == '/' ? false : true);
     
+    //console.log(router);
+
+    function handleScroll() {
+        const {scrollTop} = document.documentElement;
+        if (scrollTop>0) {
+            setScroll(true)
+        }
+        else
+        {
+            setScroll(false);
+        }
+    }
+
     useEffect(()=>{
         window.addEventListener('scroll',throttle(()=>
         {
-            const {scrollTop} = document.documentElement;
-            if (scrollTop>0) {
-                setScroll(true)
-            }
-            else
-            {
-                setScroll(false);
-            }
+            if (path.current == '/') handleScroll();
         }
         ,300))
+        
     },[])
+
+    useEffect(()=>{
+
+        if (router.asPath != '/') 
+        {
+            setScroll(true);
+        }
+        else handleScroll();        
+        path.current = router.asPath;
+    
+    },[router.asPath])
+
   
     return (
     <header 

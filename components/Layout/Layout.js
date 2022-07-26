@@ -2,7 +2,7 @@ import Header from "../Header/Header"
 
 export default function Layout({children}) {
   return (
-    <main>
+    <main className="bg-bg_primary">
         <Header/>
         {children}
     </main>
