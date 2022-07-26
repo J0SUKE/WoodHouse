@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
@@ -7,55 +7,20 @@ import Link from 'next/link';
 
 export default function Home({hero,favorites,housegood}) {
 
+    const [mobile,setMobile] = useState();
+    useEffect(()=>{
+        if (window.innerWidth<=640) setMobile(true)
+        else setMobile(false);
+
+        window.addEventListener('resize',()=>{
+            if (window.innerWidth<=640) setMobile(true)
+            else setMobile(false);
+        })
+    },[])
+
   return (
     <div className='absolute w-[100%] z-0 bg-bg_primary'>
-        <div className='relative h-[80vh]'>
-            <Carousel 
-                emulateTouch={true}
-                infiniteLoop={true}                
-                showArrows={false}
-                showStatus={false}
-                showThumbs={false}
-                renderIndicator={(onClickHandler, isSelected, index, label)=>{
-                    return (
-                        <div 
-                            onClick={onClickHandler}
-                            onKeyDown={onClickHandler}
-                            value={index}
-                            key={index}
-                            role="button"
-                            tabIndex={0}
-                            aria-label={`${label} ${index + 1}`}    
-                            className={`h-[12px] w-[12px] bg-bg_primary rounded-[50%] ${isSelected ? 'opacity-[1]' :' opacity-[.4]'} outline-none`}
-                        >                            
-                        </div>
-                    )
-                }}
-            >
-                {
-                    hero.map(item=>{
-                        
-                        const {attributes:{title,desc,button,image,slug}} = item;
-                        const {attributes:{product}} = item;
-
-                        return (
-                            <div 
-                                className='relative h-[80vh] each-slide-effect'
-                                key={item.id}
-                            >
-                                <SlideContent 
-                                    h1={title} 
-                                    p={desc} 
-                                    btn={button}
-                                    img={getStrapiMedia(image)}
-                                    slug={product.data.attributes.slug}
-                                />
-                            </div>   
-                        )
-                    })
-                }                
-            </Carousel>
-        </div>
+        <TopCaroussel hero={hero}/>
         <div className='flex flex-col lg:flex-row bg-bg_primary'>
                  <div className='relative w-[100%] lg:w-[400px] border-r-[1px] border-solid border-border'>
                     <h1 className='relative z-[2] text-titles text-[3rem] p-[2rem] font-bold uppercase'>{hero[0].attributes.title}</h1>
@@ -103,48 +68,7 @@ export default function Home({hero,favorites,housegood}) {
                         </div>
                     </div>
         </div>
-        <div className='border-t-[1px] border-solid border-border grid grid-cols-1 sm:grid-cols-[repeat(2,1fr)]  lg:grid-cols-[repeat(4,1fr)]'>
-            <div className='p-[1.4rem] border-r-[1px] border-b-[1px] border-solid border-[darkgray] flex flex-col justify-between min-h-[250px]'>
-                <h1 className='text-[clamp(2rem,4vw,3rem)] font-[700] text-titles'>OUR FAVORITES</h1>
-                <p>Remember that shelf at the video store with “Employee Favorites”? This is like that, but for Houseplant’s best sellers.</p> 
-            </div>
-            {
-                favorites.map(item=>{
-                    const {id,attributes} = item;
-                    return (
-                        <div
-                            key={id}
-                            className='border-r-[1px] border-b-[1px] border-solid border-border bg-bg_primary'
-                        >
-                            <Link href={`/products/${attributes.slug}`}>
-                            <a className='relative block w-[100%] h-[350px]'>
-                                <Image
-                                    src={getStrapiMedia(attributes.images.data[0])}
-                                    alt=""
-                                    layout='fill'
-                                    objectFit='cover'
-                                />
-                                <Image
-                                    src={getStrapiMedia(attributes.images.data[1])}
-                                    alt=""
-                                    layout='fill'
-                                    objectFit='cover'
-                                    className='absolute z-2 opacity-0 hover:opacity-[1] transition-opacity duration-500'
-                                />
-                            </a>
-                            </Link>
-                            <div className='flex justify-between px-[1rem] py-[.8rem] gap-[2rem]'>
-                                <p className='text-[1.1rem]'>{attributes.title}</p>
-                                <button className='uppercase flex flex-col justify-start'>
-                                    <span className='block text-titles font-[700]'>${attributes.price}</span>
-                                    <span className='block underline font-[700] text-titles whitespace-nowrap'>Add to cart</span>
-                                </button>
-                            </div>
-                        </div>
-                    )
-                })
-            }
-        </div>
+        <Favorites favorites={favorites}/>
         <div className='relative h-[600px]'>
             <Image
                 src={'/images/banner.jpg'}
@@ -155,66 +79,18 @@ export default function Home({hero,favorites,housegood}) {
             <div className='absolute z-2 w-[100%] h-[100%] flex flex-col gap-[1rem] items-center justify-center'>
                 <h1 className='text-[clamp(2rem,4vw,3rem)] px-[2rem] uppercase text-bg_primary font-[700] tracking-[-0.2rem] text-center'>The WoodHouse Favorite Finder</h1>
                 <p className='text-bg_primary text-[clamp(1rem,2vw,1.2rem)] px-[2rem] font-[400] mb-[1rem] text-center'>Take a look at our best selection of design products</p>
-                <Button target={'/collection/all'} text={'get started'} />
+                <Button target={'/collections/all'} text={'get started'} />
             </div>
         </div>
         <OurHouseGoods housegood={housegood}/>
-        <div className='grid grid-cols-3'>
-            <div className='relative aspect-[1/1.24]'>
-                <Image
-                    src={'/images/products/d_three_up_one.jpg'}
-                    alt=''
-                    layout='fill'
-                    objectFit='cover'
-                />
-                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
-                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
-                    <Link href={'/'}>
-                        <a className='hidden md:block border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
-                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
-                                <span className='arrow'></span>
-                            </button>
-                        </a>
-                    </Link>
-                </div>
-            </div>
-            <div className='relative aspect-[1/1.24]'>
-                <Image
-                    src={'/images/products/d_three_up_two.jpg'}
-                    alt=''
-                    layout='fill'
-                    objectFit='cover'
-                />
-                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
-                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
-                    <Link href={'/'}>
-                        <a className='hidden md:block border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
-                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
-                                <span className='arrow'></span>
-                            </button>
-                        </a>
-                    </Link>
-                </div>
-            </div>
-            <div className='relative aspect-[1/1.24]'>
-                <Image
-                    src={'/images/products/d_three_up_three.jpg'}
-                    alt=''
-                    layout='fill'
-                    objectFit='cover'
-                />
-                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
-                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
-                    <Link href={'/'}>
-                        <a className='hidden md:block border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
-                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
-                                <span className='arrow'></span>
-                            </button>
-                        </a>
-                    </Link>
-                </div>
-            </div>
-        </div>
+        {
+            mobile ?
+            <BottomCaroussel/>
+            :
+            <BottomLinks/>
+        }
+        
+        
         <div className='relative aspect-[3/1.5]'>
             <Image
                 src={'/images/bottom.png'}
@@ -459,4 +335,232 @@ function OurHouseGoods({housegood}) {
                 }                                                                                                   
             </div>
     )       
+}
+
+function TopCaroussel({hero}) {
+    return (
+        <div className='relative h-[80vh]'>
+            <Carousel 
+                emulateTouch={true}
+                infiniteLoop={true}                
+                showArrows={false}
+                showStatus={false}
+                showThumbs={false}
+                renderIndicator={(onClickHandler, isSelected, index, label)=>{
+                    return (
+                        <div 
+                            onClick={onClickHandler}
+                            onKeyDown={onClickHandler}
+                            value={index}
+                            key={index}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`${label} ${index + 1}`}    
+                            className={`h-[12px] w-[12px] bg-bg_primary rounded-[50%] ${isSelected ? 'opacity-[1]' :' opacity-[.4]'} outline-none`}
+                        >                            
+                        </div>
+                    )
+                }}
+            >
+                {
+                    hero.map(item=>{
+                        
+                        const {attributes:{title,desc,button,image,slug}} = item;
+                        const {attributes:{product}} = item;
+
+                        return (
+                            <div 
+                                className='relative h-[80vh] each-slide-effect'
+                                key={item.id}
+                            >
+                                <SlideContent 
+                                    h1={title} 
+                                    p={desc} 
+                                    btn={button}
+                                    img={getStrapiMedia(image)}
+                                    slug={product.data.attributes.slug}
+                                />
+                            </div>   
+                        )
+                    })
+                }                
+            </Carousel>
+        </div>
+    )
+}
+
+function Favorites({favorites}) {
+    return (
+        <div className='border-t-[1px] border-solid border-border grid grid-cols-1 sm:grid-cols-[repeat(2,1fr)]  lg:grid-cols-[repeat(4,1fr)]'>
+            <div className='p-[1.4rem] border-r-[1px] border-b-[1px] border-solid border-[darkgray] flex flex-col justify-between min-h-[250px]'>
+                <h1 className='text-[clamp(2rem,4vw,3rem)] font-[700] text-titles'>OUR FAVORITES</h1>
+                <p>Remember that shelf at the video store with “Employee Favorites”? This is like that, but for Houseplant’s best sellers.</p> 
+            </div>
+            {
+                favorites.map(item=>{
+                    const {id,attributes} = item;
+                    return (
+                        <div
+                            key={id}
+                            className='border-r-[1px] border-b-[1px] border-solid border-border bg-bg_primary'
+                        >
+                            <Link href={`/products/${attributes.slug}`}>
+                            <a className='relative block w-[100%] h-[350px]'>
+                                <Image
+                                    src={getStrapiMedia(attributes.images.data[0])}
+                                    alt=""
+                                    layout='fill'
+                                    objectFit='cover'
+                                />
+                                <Image
+                                    src={getStrapiMedia(attributes.images.data[1])}
+                                    alt=""
+                                    layout='fill'
+                                    objectFit='cover'
+                                    className='absolute z-2 opacity-0 hover:opacity-[1] transition-opacity duration-500'
+                                />
+                            </a>
+                            </Link>
+                            <div className='flex justify-between px-[1rem] py-[.8rem] gap-[2rem]'>
+                                <p className='text-[1.1rem]'>{attributes.title}</p>
+                                <button className='uppercase flex flex-col justify-start'>
+                                    <span className='block text-titles font-[700]'>${attributes.price}</span>
+                                    <span className='block underline font-[700] text-titles whitespace-nowrap'>Add to cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </div>
+    )
+}
+
+function BottomCaroussel() {
+    return (
+        <Carousel 
+                emulateTouch={true}    
+                infiniteLoop={true}                
+                showArrows={false}
+                showStatus={false}
+                showThumbs={false}
+                renderIndicator={false}
+            >
+                <div className='relative aspect-[1/1.24] each-slide-effect'>
+                <Image
+                    src={'/images/products/d_three_up_one.jpg'}
+                    alt=''
+                    layout='fill'
+                    objectFit='cover'
+                />
+                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
+                    <Link href={'/collections/lifestyle'}>
+                        <a className='border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                <span className='arrow'></span>
+                            </button>
+                        </a>
+                    </Link>
+                </div>
+                </div>
+                <div className='relative aspect-[1/1.24] each-slide-effect'>
+                    <Image
+                        src={'/images/products/d_three_up_two.jpg'}
+                        alt=''
+                        layout='fill'
+                        objectFit='cover'
+                    />
+                    <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                        <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> ASHTRAYS</h1>
+                        <Link href={'/collections/ashtrays'}>
+                            <a className='border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                                <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                    <span className='arrow'></span>
+                                </button>
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+                <div className='relative aspect-[1/1.24] each-slide-effect'>
+                    <Image
+                        src={'/images/products/d_three_up_three.jpg'}
+                        alt=''
+                        layout='fill'
+                        objectFit='cover'
+                    />
+                    <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                        <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> LIGHTERS</h1>
+                        <Link href={'/collections/lighters'}>
+                            <a className='border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                                <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                    <span className='arrow'></span>
+                                </button>
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+            </Carousel>
+    )
+}
+
+function BottomLinks() {
+    return (
+        <div className='grid grid-cols-3'>
+            <div className='relative aspect-[1/1.24]'>
+                <Image
+                    src={'/images/products/d_three_up_one.jpg'}
+                    alt=''
+                    layout='fill'
+                    objectFit='cover'
+                />
+                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
+                    <Link href={'/collections/lifestyle'}>
+                        <a className='border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                <span className='arrow'></span>
+                            </button>
+                        </a>
+                    </Link>
+                </div>
+            </div>
+            <div className='relative aspect-[1/1.24]'>
+                <Image
+                    src={'/images/products/d_three_up_two.jpg'}
+                    alt=''
+                    layout='fill'
+                    objectFit='cover'
+                />
+                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> ASHTRAYS</h1>
+                    <Link href={'/collections/ashtrays'}>
+                        <a className='border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                <span className='arrow'></span>
+                            </button>
+                        </a>
+                    </Link>
+                </div>
+            </div>
+            <div className='relative aspect-[1/1.24]'>
+                <Image
+                    src={'/images/products/d_three_up_three.jpg'}
+                    alt=''
+                    layout='fill'
+                    objectFit='cover'
+                />
+                <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
+                    <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> LIGHTERS</h1>
+                    <Link href={'/collections/lighting'}>
+                        <a className='border-[3px] border-solid border-bg_primary rounded-[50%] h-[60px] w-[60px]'>
+                            <button className='h-[100%] w-[100%] p-2 flex items-center justify-center'>
+                                <span className='arrow'></span>
+                            </button>
+                        </a>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    )
 }
