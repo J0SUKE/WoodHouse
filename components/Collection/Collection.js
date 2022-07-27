@@ -1,9 +1,17 @@
 import Image from 'next/image'
 import {getStrapiMedia} from '../../lib/media'
 import Link from 'next/link'
+import React,{ useContext, useState } from 'react'
+
+
+const sortContext = React.createContext();
 
 
 export default function Collection({name,image,desc,products,collections}) {
+    
+    const [showSort,setShowSort] = useState(true);
+    const [sort,setSort] = useState(null);
+    const [items,setItems] = useState(products);
     
     return (
     <div className='absolute top-[88px] bg-bg_primary w-[100%]'>
@@ -21,8 +29,28 @@ export default function Collection({name,image,desc,products,collections}) {
                 className='absolute text-[3rem] top-[50%] font-[700] tracking-[-0.1rem] left-[50%] translate-x-[-50%] uppercase text-bg_primary md:top-[55%] translate-y-[-50%] md:translate-y-0'
             >{name}</h1>
         </div>
-        <div>
-            <ProductsGallery products={products} name={name} desc={desc}/>
+        <div className='p-[2rem] border-b border-border'>
+            <div className='flex md:justify-end'>
+                <button 
+                    className='flex gap-[.8rem] items-center'
+                    onClick={()=>setShowSort(sort=>!sort)}
+                >
+                    <p className='uppercase text-titles text-[.9rem] font-[700] tracking-[-0.05rem]'>sort by : {sort}</p>
+                    <div 
+                        className={`border-b-[3px] border-r-[3px] border-titles h-[.7rem] w-[.7rem] transition-rotate duration-300
+                        ${showSort ? 'rotate-45 translate-y-[-.1rem]' : 'rotate-[-135deg] translate-y-[.2rem]'}`}
+                    ></div>
+                </button>
+            </div>
+        </div>
+        <div className='flex flex-col-reverse md:flex-row'>
+            <sortContext.Provider value={{sort,setSort,items,setItems}}>
+                <ProductsGallery products={items} name={name} desc={desc}/>
+                {
+                    showSort &&
+                    <SortSection/>
+                }
+            </sortContext.Provider>                        
         </div>
     </div>
   )
@@ -117,4 +145,71 @@ function ProductsGallery({products,name,desc}) {
             }
         </div>
     )   
+}
+
+function SortSection() {
+        
+    return (
+        <div className='py-[1rem] px-[2.5rem] border-b border-solid border-border'>
+            <h1 className='uppercase text-titles font-[700] text-[2rem] whitespace-nowrap tracking-[-0.1rem]'>sort by</h1>
+            <ul>
+                <SortOption 
+                    value={'featured'}
+                    sortFunction={(a,b)=>a.id-b.id}
+                />
+                <SortOption 
+                    value={'alphabetically, a-z'}
+                    sortFunction={(a,b)=>a.attributes.title.localeCompare(b.attributes.title)}
+                />
+                <SortOption 
+                    value={'alphabetically, z-a'}
+                    sortFunction={(a,b)=>b.attributes.title.localeCompare(a.attributes.title)}
+                />
+                <SortOption 
+                    value={'price, low to high'}
+                    sortFunction={(a,b)=>a.attributes.price - b.attributes.price}
+                />
+                <SortOption 
+                    value={'price, high to low'}
+                    sortFunction={(a,b)=>b.attributes.price - a.attributes.price}
+                />
+                <SortOption 
+                    value={'date, old to new'}
+                    sortFunction={(a,b)=>new Date(a.attributes.createdAt).getTime() - new Date(b.attributes.createdAt).getTime()}
+                />
+                <SortOption 
+                    value={'date, new to old'}
+                    sortFunction={(a,b)=>new Date(b.attributes.createdAt).getTime() - new Date(a.attributes.createdAt).getTime()}
+                />
+            </ul>
+        </div>
+    )   
+}
+
+function SortOption({value,sortFunction}) {
+    
+    const {sort,setSort,setItems} = useContext(sortContext);
+    
+    function sortitems() {
+        setSort(value);
+        setItems(items=>items.sort(sortFunction));
+    }
+
+    return (
+        <li className='my-[1rem]'>
+            <button 
+                className='flex gap-[1rem] items-center'
+                onClick={sortitems}
+            >
+                <div 
+                    className='h-[1.2rem] w-[1.2rem] border border-titles border-solid rounded-full flex items-center justify-center'
+                >
+                    {
+                        sort == value && <div className='h-[75%] w-[75%] bg-titles rounded-full'></div>
+                    }                
+                </div>
+                <p className='whitespace-nowrap'>{value}</p>
+            </button>
+        </li>
+    )
 }
