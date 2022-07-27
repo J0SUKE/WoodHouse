@@ -9,6 +9,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 export default function Product({product,other}) {
 
+    console.log(product);
     const {title,desc,price,details,material,dimensions} = product.attributes;
 
     const [menu,setMenu] = useState(null);
@@ -34,8 +35,26 @@ export default function Product({product,other}) {
                 :
                 <ImagesGallery product={product}/>
             }               
-            <div className='sticky top-[88px] w-[100%] lg:w-[45%]  p-[3rem] bg-bg_primary'>
-                <h1 className='text-[3rem] tracking-[-0.1rem] uppercase text-titles font-[700]'>{title}</h1>
+            <div className='sticky top-[88px] w-[100%] lg:w-[45%]  p-[3rem] bg-bg_primary text-titles'>
+                {
+                    product.attributes.collection.data &&
+                    <div className='flex items-center'>
+                        <Link href={'/collections/all'}>
+                            <a>
+                                <p className='uppercase text-[.8rem]'>All</p>
+                            </a>
+                        </Link>
+                        <span className='block h-[.7rem] rotate-[30deg] mx-[1rem] w-[1px] bg-titles'></span>
+                        <Link href={`/collections/${product.attributes.collection.data?.attributes.name}`}>
+                            <a>
+                                <p className='uppercase text-[.8rem]'>{product.attributes.collection.data?.attributes.name}</p>
+                            </a>
+                        </Link>      
+                        <span className='block h-[.7rem] rotate-[30deg] mx-[1rem] w-[1px] bg-titles'></span>
+                        <p className='uppercase text-[.8rem] font-[600]'>{title}</p>
+                    </div>
+                }
+                <h1 className='text-[3rem] tracking-[-0.1rem] mt-[2rem] uppercase text-titles font-[700]'>{title}</h1>
                 <p className='mt-[1rem] font-[400] text-titles'>{desc}</p>
                 <p className='text-[2rem] font-[500] mt-[1.5rem]'>$ {price}</p>
                 <button 
@@ -89,9 +108,6 @@ export default function Product({product,other}) {
                     )
                 })
             }
-            
-            <div></div>
-            <div></div>
         </div>
     </div>
   )
@@ -162,7 +178,7 @@ function Carossel({product}) {
                             role="button"
                             tabIndex={0}
                             aria-label={`${label} ${index + 1}`}    
-                            className={`h-[12px] w-[12px] bg-titles rounded-[50%] ${isSelected ? 'opacity-[1]' :' opacity-[.4]'} outline-none`}
+                            className={`h-[8px] w-[8px] bg-titles rounded-[50%] ${isSelected ? 'opacity-[1]' :' opacity-[.4]'} outline-none`}
                         >                            
                         </div>
                     )
