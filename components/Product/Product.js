@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import {getStrapiMedia} from '../../lib/media';
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
@@ -6,10 +6,10 @@ import rehypeRaw from "rehype-raw";
 import Link from 'next/link';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import {menuContext} from '../../context/MenuContext';
 
 export default function Product({product,other}) {
 
-    console.log(product);
     const {title,desc,price,details,material,dimensions} = product.attributes;
 
     const [menu,setMenu] = useState(null);
@@ -160,8 +160,9 @@ function ImagesGallery({product}) {
 }
 
 function Carossel({product}) {
+    const {menu} = useContext(menuContext) 
     return (
-        <div className='w-[100%]'>
+        <div className='w-[100%] relative'>
             <Carousel 
                 emulateTouch={true}
                 infiniteLoop={true}                
@@ -170,17 +171,23 @@ function Carossel({product}) {
                 showThumbs={false}
                 renderIndicator={(onClickHandler, isSelected, index, label)=>{
                     return (
-                        <div 
-                            onClick={onClickHandler}
-                            onKeyDown={onClickHandler}
-                            value={index}
-                            key={index}
-                            role="button"
-                            tabIndex={0}
-                            aria-label={`${label} ${index + 1}`}    
-                            className={`h-[8px] w-[8px] bg-titles rounded-[50%] ${isSelected ? 'opacity-[1]' :' opacity-[.4]'} outline-none`}
-                        >                            
-                        </div>
+                        <>
+                            {
+                                !menu &&
+                                <div 
+                                    onClick={onClickHandler}
+                                    onKeyDown={onClickHandler}
+                                    value={index}
+                                    key={index}
+                                    role="button"
+                                    tabIndex={0}
+                                    aria-label={`${label} ${index + 1}`}    
+                                    className={`relative h-[8px] w-[8px] z-[0] bg-titles rounded-[50%] ${isSelected ? 'opacity-[1]' :' opacity-[.4]'} outline-none`}
+                                >                            
+                                </div>
+                            }
+                        </>
+                        
                     )
                 }}
             >

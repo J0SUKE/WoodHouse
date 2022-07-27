@@ -67,7 +67,9 @@ export async function getStaticProps({params})
     
     collection=collection.data[0];
     
-    let collections = await fetchAPI(`/collections`,{});
+    let collections = await fetchAPI(`/collections`,{
+      populate:'*',
+    });
     
     collections=collections.data;
     

@@ -9,19 +9,18 @@ import {menuContext} from '../../context/MenuContext';
 export default function Header() {
     
     const router = useRouter();
-    const {menu,setMenu} = useContext(menuContext);
+    const {menu,setMenu,img,setImg} = useContext(menuContext);
     const path = useRef(router.asPath);
     const menuval = useRef(menu);
     const [scroll,setScroll] = useState(router.asPath == '/' ? false : true);
-    //console.log(router);
+
 
     function handleScroll() {
-        if (path.current != '/') return;
         const {scrollTop} = document.documentElement;
-        if (scrollTop>0) {
-            setScroll(true)
+        if (scrollTop>0 && !menuval.current) {
+            setScroll(true);
         }
-        else if(scrollTop<=0 && !menuval.current)
+        else if(scrollTop<=0 && !menuval.current && path.current == '/')
         {
             setScroll(false);
         }
@@ -32,22 +31,28 @@ export default function Header() {
     },[])
 
     useEffect(()=>{
-
         path.current = router.asPath;
         setMenu(false);
         if (router.asPath != '/') 
         {
             setScroll(true);
         }
-        else handleScroll();        
+        else setScroll(false);        
     
     },[router.asPath])
 
     useEffect(()=>{
         menuval.current=menu;
+        const {scrollTop} = document.documentElement;
+        setImg(null);
         if (menu) setScroll(true);
-        else handleScroll();
+        else if(path.current!='/' || scrollTop>0) setScroll(true)
+        else setScroll(false);
     },[menu])
+
+    useEffect(()=>{
+        if (img!=null) setScroll(false);        
+    },[img])
   
     return (
     <header 

@@ -49,7 +49,9 @@ export async function getStaticProps() {
   housegood = housegood.data.attributes.products.data;
 
   
-  let collections = await fetchAPI(`/collections`,{});
+  let collections = await fetchAPI(`/collections`,{
+    populate:'*',
+  });
     
   collections=collections.data;
 

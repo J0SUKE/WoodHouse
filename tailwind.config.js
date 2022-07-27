@@ -47,6 +47,20 @@ module.exports = {
           'div12',
         ],
       },
+      keyframes: {
+        appear: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        slide: {
+          '0%': { opacity: 0,transform: 'translate(-25%,25%)' },
+          '100%': { opacity: 1, transform: 'translate(0%,0%)' },
+        }
+      },
+      animation: {
+        appear: 'appear .5s ease-out forwards',
+        slide: 'slide .5s ease-out',
+      }
     },
     colors:{
       // Using modern `rgb`
