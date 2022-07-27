@@ -1,8 +1,17 @@
 import Collection from "../../components/Collection/Collection";
 import {fetchAPI} from '../../lib/api';
 import Head from "next/head";
+import { useContext, useEffect } from "react";
+import {collectionContext} from "../../context/CollectionsContext";
 
 export default function AllPage({products,collections}) {
+    
+    const {setCollections} = useContext(collectionContext);
+
+    useEffect(()=>{
+      setCollections(collections);
+    },[])
+
     return (
       <>
         <Head>

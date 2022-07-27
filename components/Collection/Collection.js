@@ -9,7 +9,7 @@ const sortContext = React.createContext();
 
 export default function Collection({name,image,desc,products,collections}) {
     
-    const [showSort,setShowSort] = useState(true);
+    const [showSort,setShowSort] = useState(false);
     const [sort,setSort] = useState(null);
     const [items,setItems] = useState(products);
     

@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Product from '../../components/Product/Product'
 import {fetchAPI} from '../../lib/api';
 import Head from 'next/head';
+import {collectionContext} from '../../context/CollectionsContext';
 
-export default function ProductPage({product,other}) {
+export default function ProductPage({product,other,collections}) {
+  
+  const {setCollections} = useContext(collectionContext);
+
+  useEffect(()=>{
+    setCollections(collections);
+  },[])
+  
+
   return <>
       <Head>
         <title>{product.attributes.title} – WoodHouse</title>
@@ -61,10 +70,13 @@ export async function getStaticProps({params})
     
     other=other.data;
 
+    let collections = await fetchAPI(`/collections`,{});
+    
+    collections=collections.data;
     
     
     return {
         // Passed to the page component as props
-        props: { product,other },
+        props: { product,other,collections },
     }
 }

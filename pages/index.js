@@ -1,8 +1,18 @@
 import Head from 'next/head'
+import { useContext, useEffect } from 'react';
 import Home from '../components/Home/Home'
 import {fetchAPI} from '../lib/api';
+import {collectionContext} from '../context/CollectionsContext';
 
-export default function HomePage({hero,favorites,housegood}) {
+export default function HomePage({hero,favorites,housegood,collections}) {
+  
+  const {setCollections} = useContext(collectionContext);
+
+  useEffect(()=>{
+    setCollections(collections);
+  },[])
+  
+
   return (
     <div>
       <Head>
@@ -38,7 +48,13 @@ export async function getStaticProps() {
 
   housegood = housegood.data.attributes.products.data;
 
+  
+  let collections = await fetchAPI(`/collections`,{});
+    
+  collections=collections.data;
+
+
   return{
-    props:{hero,favorites,housegood}
+    props:{hero,favorites,housegood,collections}
   }
 }
