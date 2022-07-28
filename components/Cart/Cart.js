@@ -73,21 +73,30 @@ function CartEmpty() {
 
 function CartNotEmpty() {
     
-    const {cart} = useContext(cartContext);
+    const {cart,total} = useContext(cartContext);    
     
     return <div className='py-[3rem] h-[100%]'>
         <h1 className='uppercase text-[clamp(1.4rem,3vw,2rem)] font-[700] text-titles tracking-[-0.1rem] text-center'>cart ({cart.length})</h1>
-        <div className='mt-[2rem]  max-h-[50%] overflow-y-auto'>
-        {
-            cart.map(item=>{
-                return <CartItem key={item.id} item={item} />
-            })
-        }
-        </div>
-        <div>
-            <div>
-                <h1>subtotal</h1>
-                <p></p>
+        <div className='flex flex-col h-[100%] justify-between'>
+            <div className='mt-[2rem]  max-h-[50%] overflow-y-auto'>
+            {
+                cart.map(item=>{
+                    return <CartItem key={item.id} item={item} />
+                })
+            }
+            </div>
+            <div className='p-[3rem]'>
+                <div className='flex justify-between items-center'>
+                    <p className='uppercase font-[700] text-titles text-[clamp(1.1rem,2.6vw,1.8rem)] tracking-[-0.1rem]'>subtotal</p>
+                    <p className='uppercase font-[700] text-titles text-[clamp(1.1rem,2.6vw,1.8rem)] tracking-[-0.1rem]'>${Number.parseFloat(total).toFixed(2)}</p>
+                </div>
+                <div className='flex justify-between items-center mt-[.5rem]'>
+                    <p className='text-titles'>Shipping</p>
+                    <p className='text-titles'>calculated at checkout</p>
+                </div>
+                <div>
+                    <button className='w-[100%] py-[.7rem] bg-titles text-bg_primary mt-[1rem] text-[1.2rem] uppercase font-[600] tracking-[-0.05rem]'>checkout</button>
+                </div>
             </div>
         </div>
     </div>
