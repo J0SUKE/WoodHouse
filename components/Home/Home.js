@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import {getStrapiMedia} from '../../lib/media';
 import Link from 'next/link';
+import {cartContext} from '../../context/CartContext';
 
 export default function Home({hero,favorites,housegood}) {
 
     const [mobile,setMobile] = useState();
+    const {addTocart} = useContext(cartContext)
+
     useEffect(()=>{
         if (window.innerWidth<=640) setMobile(true)
         else setMobile(false);
@@ -62,7 +65,10 @@ export default function Home({hero,favorites,housegood}) {
                         
                         <div className='w-[100%] h-[100px] absolute bottom-0 z-2 bg-bg_primary flex justify-between items-center px-[2rem]'>
                             <p className='text-[clamp(.9rem,2vw,1.2rem)]'>{hero[0].attributes.product.data.attributes.title}</p>
-                            <button className='bg-titles text-bg_primary uppercase text-bold text-[clamp(.9rem,2vw,1.2rem)] py-[.7rem] px-[2rem] font-[500]'>
+                            <button 
+                                className='bg-titles text-bg_primary uppercase text-bold text-[clamp(.9rem,2vw,1.2rem)] py-[.7rem] px-[2rem] font-[500]'
+                                onClick={()=>{addTocart(hero[0].attributes.product.data)}}
+                            >
                                 Add to cart - ${hero[0].attributes.product.data.attributes.price}
                             </button>
                         </div>
@@ -144,7 +150,11 @@ function Button({target,text}) {
     )
 }
 
-function HouseGood({slug,title,price,images}) {
+function HouseGood({item}) {
+    
+    const {slug,title,price,images} = item.attributes;
+    const {addTocart} = useContext(cartContext)
+    
     return (
         <div
             className={`aspect-[1/1.25] bg-bg_primary`}
@@ -168,7 +178,10 @@ function HouseGood({slug,title,price,images}) {
             </Link>
             <div className='flex justify-between px-[1rem] pt-[3rem] pb-[1rem] gap-[2rem]'>
                 <p className='text-[1.1rem]'>{title}</p>
-                <button className='uppercase flex gap-[1rem]'>
+                <button 
+                    className='uppercase flex gap-[1rem]'
+                    onClick={()=>{addTocart(item)}}
+                >
                     <span className='block text-titles font-[700]'>${price}</span>
                     <span className='block underline font-[700] text-titles'>Add to cart</span>
                 </button>
@@ -187,150 +200,73 @@ function OurHouseGoods({housegood}) {
                 </div>
                 {
                     housegood[0] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div2`}
-                    >
-                        <HouseGood 
-                            slug={housegood[0].attributes.slug} 
-                            title={housegood[0].attributes.title} 
-                            images={housegood[0].attributes.images}
-                            price={housegood[0].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div2`}>
+                        <HouseGood item={housegood[0]}/>
                     </div>
                 }                
                 {
                     housegood[1] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div3`}
-                    >
-                        <HouseGood 
-                            slug={housegood[1].attributes.slug} 
-                            title={housegood[1].attributes.title} 
-                            images={housegood[1].attributes.images}
-                            price={housegood[1].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div3`}>
+                        <HouseGood item={housegood[1]}/>
                     </div>
                 }
                 {
                     housegood[2] && 
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div4`}
-                    >
-                        <HouseGood 
-                            slug={housegood[2].attributes.slug} 
-                            title={housegood[2].attributes.title} 
-                            images={housegood[2].attributes.images}
-                            price={housegood[2].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div4`}>
+                        <HouseGood item={housegood[2]}/>
                     </div>  
 
                 } 
                 {
                     housegood[3] && 
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div5`}
-                    >
-                        <HouseGood 
-                            slug={housegood[3].attributes.slug} 
-                            title={housegood[3].attributes.title} 
-                            images={housegood[3].attributes.images}
-                            price={housegood[3].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div5`}>
+                        <HouseGood item={housegood[3]}/>
                     </div>
 
                 }             
                 {
                     housegood[4] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div6`}
-                    >
-                        <HouseGood 
-                            slug={housegood[4].attributes.slug} 
-                            title={housegood[4].attributes.title} 
-                            images={housegood[4].attributes.images}
-                            price={housegood[4].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div6`}>
+                        <HouseGood item={housegood[4]}/>
                     </div>
 
                 }    
                 {
                     housegood[5] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div7`}
-                    >
-                        <HouseGood 
-                            slug={housegood[5].attributes.slug} 
-                            title={housegood[5].attributes.title} 
-                            images={housegood[5].attributes.images}
-                            price={housegood[5].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div7`}>
+                        <HouseGood item={housegood[5]}/>
                     </div>
 
                 }    
                 {
                     housegood[6] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div8`}
-                    >
-                        <HouseGood 
-                            slug={housegood[6].attributes.slug} 
-                            title={housegood[6].attributes.title} 
-                            images={housegood[6].attributes.images}
-                            price={housegood[6].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div8`}>
+                        <HouseGood item={housegood[6]}/>
                     </div>
 
                 }    
                 {
                     housegood[7] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div9`}
-                    >
-                        <HouseGood 
-                            slug={housegood[7].attributes.slug} 
-                            title={housegood[7].attributes.title} 
-                            images={housegood[7].attributes.images}
-                            price={housegood[7].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div9`}>
+                        <HouseGood item={housegood[7]}/>
                     </div>
                 }                
                 {
                     housegood[8] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div10`}
-                    >
-                        <HouseGood 
-                            slug={housegood[8].attributes.slug} 
-                            title={housegood[8].attributes.title} 
-                            images={housegood[8].attributes.images}
-                            price={housegood[8].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div10`}>
+                        <HouseGood item={housegood[8]}/>
                     </div>
                 }               
                 {
                     housegood[9] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div11`}
-                    >
-                        <HouseGood 
-                            slug={housegood[9].attributes.slug} 
-                            title={housegood[9].attributes.title} 
-                            images={housegood[9].attributes.images}
-                            price={housegood[9].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div11`}>
+                        <HouseGood item={housegood[9]}/>
                     </div>
                 }                                                                                                   
                 {
                     housegood[10] &&
-                    <div 
-                        className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div12`}
-                    >
-                        <HouseGood 
-                            slug={housegood[10].attributes.slug} 
-                            title={housegood[10].attributes.title} 
-                            images={housegood[10].attributes.images}
-                            price={housegood[10].attributes.price}
-                        />
+                    <div className={`border-r-[1px] border-b-[1px] border-solid border-border grid-in-div12`}>
+                        <HouseGood item={housegood[10]}/>
                     </div>
                 }                                                                                                   
             </div>
@@ -390,6 +326,7 @@ function TopCaroussel({hero}) {
 }
 
 function Favorites({favorites}) {
+    const {addTocart} = useContext(cartContext)
     return (
         <div className='border-t-[1px] border-solid border-border grid grid-cols-1 sm:grid-cols-[repeat(2,1fr)]  lg:grid-cols-[repeat(4,1fr)]'>
             <div className='p-[1.4rem] border-r-[1px] border-b-[1px] border-solid border-[darkgray] flex flex-col justify-between min-h-[250px]'>
@@ -423,7 +360,10 @@ function Favorites({favorites}) {
                             </Link>
                             <div className='flex justify-between px-[1rem] py-[.8rem] gap-[2rem]'>
                                 <p className='text-[1.1rem]'>{attributes.title}</p>
-                                <button className='uppercase flex flex-col justify-start'>
+                                <button 
+                                    className='uppercase flex flex-col justify-start'
+                                    onClick={()=>{addTocart(item)}}
+                                >
                                     <span className='block text-titles font-[700]'>${attributes.price}</span>
                                     <span className='block underline font-[700] text-titles whitespace-nowrap'>Add to cart</span>
                                 </button>

@@ -5,11 +5,13 @@ import {throttle} from 'lodash';
 import React from "react";
 import { useRouter } from 'next/router'
 import {menuContext} from '../../context/MenuContext';
+import {cartContext} from "../../context/CartContext";
 
 export default function Header() {
     
     const router = useRouter();
     const {menu,setMenu,menu_image,setMenu_image} = useContext(menuContext);
+    const {setCartMenu,cart} = useContext(cartContext);
     const path = useRef(router.asPath);
     const menuval = useRef(menu);
     const [scroll,setScroll] = useState(router.asPath == '/' ? false : true);
@@ -78,9 +80,11 @@ export default function Header() {
             </Link>
             <button 
                 className={`${scroll ? `text-titles`:`text-bg_primary`} 
-                uppercase font-bold flex flex-col items-center text-[.9rem]`}>
+                uppercase font-bold flex flex-col items-center text-[.9rem]`}
+                onClick={()=>setCartMenu(true)}
+            >
                 <p>cart</p>
-                <p>[0]</p>
+                <p>[{cart.length}]</p>
             </button>
         </div>
     </header>

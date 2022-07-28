@@ -7,6 +7,7 @@ import Link from 'next/link';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import {menuContext} from '../../context/MenuContext';
+import {cartContext} from '../../context/CartContext';
 
 export default function Product({product,other}) {
 
@@ -14,6 +15,7 @@ export default function Product({product,other}) {
 
     const [menu,setMenu] = useState(null);
     const [mobile,setMobile] = useState(false);
+    const {addTocart} = useContext(cartContext)
 
     useEffect(()=>{
         
@@ -58,7 +60,9 @@ export default function Product({product,other}) {
                 <p className='mt-[1rem] font-[400] text-titles'>{desc}</p>
                 <p className='text-[2rem] font-[500] mt-[1.5rem]'>$ {price}</p>
                 <button 
-                    className='uppercase bg-titles w-[100%] lg:w-[auto] py-[.8rem] px-[20%] text-bg_primary text-[1.1em] font-[600] mt-[2rem]'>
+                    className='uppercase bg-titles w-[100%] lg:w-[auto] py-[.8rem] px-[20%] text-bg_primary text-[1.1em] font-[600] mt-[2rem]'
+                    onClick={()=>{addTocart(product)}}
+                >
                     add to cart
                 </button>
                 <p className='text-[.8rem] mt-[2rem]'>Typically ships in 3-5 business days</p>

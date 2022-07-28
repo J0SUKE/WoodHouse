@@ -1,0 +1,1 @@
+export const max_item_number = 16; // max amount of what a user can buy from one product
