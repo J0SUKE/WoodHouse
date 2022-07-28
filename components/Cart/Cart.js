@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import {cartContext} from '../../context/CartContext'
 import Link from 'next/link';
 import {collectionContext} from '../../context/CollectionsContext';
@@ -10,15 +10,26 @@ import { max } from 'lodash';
 export default function Cart() {
     
     const {setCartMenu,cartMenu,cart} = useContext(cartContext);
+    const cartMenuRef = useRef();
+
+    function closeCartMenu() {
+        cartMenuRef.current.classList.remove('animate-cart');
+        cartMenuRef.current.classList.add('animate-cartreverse');
+        setTimeout(()=>{
+            setCartMenu(false);
+        },300);
+        
+    }
 
     return (
     <div 
-        className={`absolute top-0 right-0 z-[101] w-[100%] lg:w-[600px] h-[100%] bg-bg_primary transition-transform duration-[400ms] ${cartMenu ? 'translate-x-[0%]' : 'translate-x-[100%]'}`}
+        className={`absolute top-0 right-0 z-[101] w-[100%] lg:w-[600px] h-[100%] bg-bg_primary animate-cart`}
+        ref={cartMenuRef}
     >
         <div className='absolute right-[3rem] top-[3rem]'>
             <button 
                 className='uppercase font-[700] tracking-[-0.01rem] text-titles'
-                onClick={()=>setCartMenu(false)}
+                onClick={closeCartMenu}
             >close</button>
         </div>
         {
@@ -76,7 +87,7 @@ function CartNotEmpty() {
     const {cart,total} = useContext(cartContext);    
     
     return <div className='py-[3rem] h-[100%]'>
-        <h1 className='uppercase text-[clamp(1.4rem,3vw,2rem)] font-[700] text-titles tracking-[-0.1rem] text-center'>cart ({cart.length})</h1>
+        <h1 className='uppercase text-[clamp(1.4rem,3vw,2rem)] font-[700] text-titles tracking-[-0.1rem] text-center '>cart ({cart.length})</h1>
         <div className='flex flex-col h-[100%] justify-between'>
             <div className='mt-[2rem]  max-h-[50%] overflow-y-auto'>
             {

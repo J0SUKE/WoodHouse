@@ -55,11 +55,21 @@ module.exports = {
         slide: {
           '0%': { opacity: 0,transform: 'translate(-25%,25%)' },
           '100%': { opacity: 1, transform: 'translate(0%,0%)' },
+        },
+        cart: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': {transform: 'translateX(0%)' },
+        },
+        cartreverse: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': {transform: 'translateX(100%)' },
         }
       },
       animation: {
         appear: 'appear .5s ease-out forwards',
         slide: 'slide .5s ease-out',
+        cart: 'cart .3s ease-out forwards',
+        cartreverse: 'cartreverse .3s ease-out forwards',
       }
     },
     colors:{
