@@ -9,7 +9,7 @@ import {menuContext} from '../../context/MenuContext';
 export default function Header() {
     
     const router = useRouter();
-    const {menu,setMenu,img,setImg} = useContext(menuContext);
+    const {menu,setMenu,menu_image,setMenu_image} = useContext(menuContext);
     const path = useRef(router.asPath);
     const menuval = useRef(menu);
     const [scroll,setScroll] = useState(router.asPath == '/' ? false : true);
@@ -44,15 +44,15 @@ export default function Header() {
     useEffect(()=>{
         menuval.current=menu;
         const {scrollTop} = document.documentElement;
-        setImg(null);
+        setMenu_image(null);
         if (menu) setScroll(true);
         else if(path.current!='/' || scrollTop>0) setScroll(true)
         else setScroll(false);
     },[menu])
 
     useEffect(()=>{
-        if (img!=null) setScroll(false);        
-    },[img])
+        if (menu_image!=null) setScroll(false);        
+    },[menu_image])
   
     return (
     <header 
