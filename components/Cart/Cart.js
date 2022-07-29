@@ -5,21 +5,10 @@ import {collectionContext} from '../../context/CollectionsContext';
 import Image from 'next/image';
 import {getStrapiMedia}  from '../../lib/media'
 import {max_item_number} from '../../globals/variables'
-import { max } from 'lodash';
 
-export default function Cart() {
+export default function Cart({closeCartMenu,cartMenuRef}) {
     
-    const {setCartMenu,cartMenu,cart} = useContext(cartContext);
-    const cartMenuRef = useRef();
-
-    function closeCartMenu() {
-        cartMenuRef.current.classList.remove('animate-cart');
-        cartMenuRef.current.classList.add('animate-cartreverse');
-        setTimeout(()=>{
-            setCartMenu(false);
-        },300);
-        
-    }
+    const {cart} = useContext(cartContext);    
 
     return (
     <div 

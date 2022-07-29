@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export const cartContext = React.createContext();
 
@@ -7,8 +7,10 @@ export default function CartContext({children}) {
     const [cartMenu,setCartMenu] = useState(false);
     const [cart,setCart] = useState([]);
     const [total,setTotal] = useState(0);
+    let firstLoadPassed = useRef(false);
 
     function addTocart(newitem) {
+        firstLoadPassed.current=true;
         setCart(items=>{
             if (items.filter(item=>item.id==newitem.id).length!=0)
             {
@@ -37,10 +39,12 @@ export default function CartContext({children}) {
     }
 
     function removeFromCart(elementToRemove) {
+        firstLoadPassed.current=true;
         setCart(items=>items.filter(item=>item.id!=elementToRemove.id));
     }
 
     function setQty(elementTomodify,newQty) {
+        firstLoadPassed.current=true;
         setCart(items=>items.map(item=>{
             if (item.id!=elementTomodify.id) return item
             else
@@ -52,13 +56,31 @@ export default function CartContext({children}) {
             }
         }))
     }
+    
+    useEffect(()=>{
+        let items = JSON.parse(localStorage.getItem('cart'));
+        console.log(items);
+        if(items)
+        {
+            setCart(items);
+        }
+    },[])
 
     useEffect(()=>{
+        
+        // total
         let t = 0;
         cart.forEach(element => {
             t+=element.attributes.price*element.qty;
         });
         setTotal(t);
+
+        //storage       
+        if (firstLoadPassed.current) {
+            localStorage.setItem('cart',JSON.stringify(cart));      
+        }
+
+        console.log('found in local storage',JSON.parse(localStorage.getItem('cart')));
     },[cart])
 
     

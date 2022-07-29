@@ -13,6 +13,17 @@ export default function Layout({children}) {
   const wrapper = useRef();
   const router = useRouter();
 
+  const cartMenuRef = useRef();
+
+  function closeCartMenu() {
+      cartMenuRef.current.classList.remove('animate-cart');
+      cartMenuRef.current.classList.add('animate-cartreverse');
+      setTimeout(()=>{
+          setCartMenu(false);
+      },300);
+      
+  }
+
   useEffect(()=>{
     setCartMenu(false);
   },[router])
@@ -31,12 +42,9 @@ export default function Layout({children}) {
             >
               <div
                 className="bg-[rgba(0,0,0,.5)] absolute top-0 left-0 right-0 bottom-0"
-                onClick={(e)=>{
-                  e.stopPropagation();
-                  setCartMenu(false)
-                }}     
+                onClick={closeCartMenu}     
               ></div>
-              <Cart/>
+              <Cart closeCartMenu={closeCartMenu} cartMenuRef={cartMenuRef}/>
           </div>   
         }        
     </main>
