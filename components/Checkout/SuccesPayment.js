@@ -3,14 +3,20 @@ import useWindowSize from '../../hooks/useWindowSize'
 import Confetti from 'react-confetti'
 import Link from 'next/link';
 import {cartContext} from '../../context/CartContext';
+import {checkoutContenxt} from '../../context/CheckoutContext';
+import { useRouter } from 'next/router';
 
 export default function SuccesPayment() {
   
     const { width, height } = useWindowSize();
     const {setCart} = useContext(cartContext);
+    const router = useRouter();
+    const {secrentIntent} = useContext(checkoutContenxt);
 
     useEffect(()=>{
-        setCart([]);
+        //setCart([]);
+        console.log(secrentIntent);
+        console.log(router?.query?.payment_intent_client_secret);
     },[])
 
     return (

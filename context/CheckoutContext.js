@@ -6,6 +6,7 @@ export default function CheckoutContext({children}) {
   
     const [checkoutStep,setCheckoutStep] = useState(1);
     const [shippingMethod,setShippingMethod] = useState(1);
+    const [secrentIntent,setSecretIntent] = useState(null);
 
     return (
     <checkoutContenxt.Provider value={
@@ -13,7 +14,9 @@ export default function CheckoutContext({children}) {
         checkoutStep,
         setCheckoutStep,
         shippingMethod,
-        setShippingMethod
+        setShippingMethod,
+        secrentIntent,
+        setSecretIntent
       }}>
         {children}
     </checkoutContenxt.Provider>

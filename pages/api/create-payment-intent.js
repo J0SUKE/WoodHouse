@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       amount: calculateOrderAmount(items),
       currency: "eur",
       automatic_payment_methods: {
-        enabled: true,
+        enabled: false,
       },
       receipt_email: email,
     });

@@ -9,9 +9,10 @@ import ContactInfo from './ContactInfo';
 import Shipping from './Shipping';
 import { useRouter } from 'next/router';
 import {checkoutStepsNames} from '../../globals/variables';
+import { Elements } from '@stripe/react-stripe-js';
 
-export default function Checkout() {
-    
+export default function Checkout({options,stripe,clientSecret}) 
+{    
     const {checkoutStep} = useContext(checkoutContenxt)
     const {cart,total} = useContext(cartContext);
     const router = useRouter();
@@ -33,13 +34,18 @@ export default function Checkout() {
             </div>
             <div>
                 {
-                    router?.asPath.startsWith(`/checkout?step=${checkoutStepsNames[0]}`) ?
-                    <ContactInfo/>
-                    :
-                    router?.asPath.startsWith('/checkout?step=shipping_method') ?
-                    <Shipping/>
-                    :
-                    <CheckoutForm/>
+                    clientSecret &&
+                    <Elements options={options} stripe={stripe}>
+                        {
+                            router?.asPath.startsWith(`/checkout?step=${checkoutStepsNames[0]}`) ?
+                            <ContactInfo/>
+                            :
+                            router?.asPath.startsWith('/checkout?step=shipping_method') ?
+                            <Shipping/>
+                            :
+                            <CheckoutForm/>
+                        }                        
+                    </Elements>                    
                 }
             </div>
         </div>
@@ -49,7 +55,7 @@ export default function Checkout() {
                     cart.map(item=>{
                         return (
                         <div key={item.id} className='flex items-center gap-[1rem] my-[1rem]'>
-                            <div className='relative aspect-[1/1] w-[64px] '>
+                            <div className='relative h-[64px] w-[64px] '>
                                 <div className='relative w-[100%] h-[100%] overflow-hidden border border-border rounded-[6px]'>
                                     <Image
                                         src={getStrapiMedia(item.attributes.images.data[0])}
