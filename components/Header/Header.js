@@ -22,7 +22,7 @@ export default function Header() {
         if (scrollTop>0 && !menuval.current) {
             setScroll(true);
         }
-        else if(scrollTop<=0 && !menuval.current && path.current == '/')
+        else if(scrollTop<=0 && !menuval.current && (path.current == '/' || router.asPath=='/#cartRedirect'))
         {
             setScroll(false);
         }
@@ -35,7 +35,7 @@ export default function Header() {
     useEffect(()=>{
         path.current = router.asPath;
         setMenu(false);
-        if (router.asPath != '/') 
+        if (router.asPath != '/' && router.asPath!='/#cartRedirect') 
         {
             setScroll(true);
         }
@@ -48,7 +48,7 @@ export default function Header() {
         const {scrollTop} = document.documentElement;
         setMenu_image(null);
         if (menu) setScroll(true);
-        else if(path.current!='/' || scrollTop>0) setScroll(true)
+        else if((path.current!='/' && router.asPath!='/#cartRedirect') || scrollTop>0) setScroll(true)
         else setScroll(false);
     },[menu])
 

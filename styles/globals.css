@@ -75,7 +75,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  border: 1px solid rgb(50,30,30);
+  border: 1px solid #321e1e;
   transition: border .3s;
   left: 1px;
   top: 1px;
@@ -85,4 +85,28 @@ a {
 .btnborder:hover::before
 {
   border: 2px solid rgb(50,30,30);
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

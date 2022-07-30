@@ -5,10 +5,13 @@ import {collectionContext} from '../../context/CollectionsContext';
 import Image from 'next/image';
 import {getStrapiMedia}  from '../../lib/media'
 import {max_item_number} from '../../globals/variables'
+import { checkoutContenxt } from '../../context/CheckoutContext';
+import {checkoutStepsNames} from '../../globals/variables';
 
 export default function Cart({closeCartMenu,cartMenuRef}) {
     
     const {cart} = useContext(cartContext);    
+
 
     return (
     <div 
@@ -74,6 +77,7 @@ function CartEmpty() {
 function CartNotEmpty() {
     
     const {cart,total} = useContext(cartContext);    
+    const {checkoutStep} = useContext(checkoutContenxt)
     
     return <div className='py-[3rem] h-[100%]'>
         <h1 className='uppercase text-[clamp(1.4rem,3vw,2rem)] font-[700] text-titles tracking-[-0.1rem] text-center '>cart ({cart.length})</h1>
@@ -95,7 +99,12 @@ function CartNotEmpty() {
                     <p className='text-titles'>calculated at checkout</p>
                 </div>
                 <div>
-                    <button className='w-[100%] py-[.7rem] bg-titles text-bg_primary mt-[1rem] text-[1.2rem] uppercase font-[600] tracking-[-0.05rem]'>checkout</button>
+                    <Link 
+                        href={`/checkout?step=${checkoutStepsNames[checkoutStep-1]}`} 
+                    >
+                        <button className='w-[100%] py-[.7rem] bg-titles text-bg_primary mt-[1rem] text-[1.2rem] uppercase font-[600] tracking-[-0.05rem]'>checkout</button>
+                    </Link>
+                    
                 </div>
             </div>
         </div>

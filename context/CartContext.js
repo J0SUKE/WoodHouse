@@ -59,7 +59,6 @@ export default function CartContext({children}) {
     
     useEffect(()=>{
         let items = JSON.parse(localStorage.getItem('cart'));
-        console.log(items);
         if(items)
         {
             setCart(items);
@@ -80,7 +79,6 @@ export default function CartContext({children}) {
             localStorage.setItem('cart',JSON.stringify(cart));      
         }
 
-        console.log('found in local storage',JSON.parse(localStorage.getItem('cart')));
     },[cart])
 
     

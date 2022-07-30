@@ -25,7 +25,13 @@ export default function Layout({children}) {
   }
 
   useEffect(()=>{
-    setCartMenu(false);
+    if (router.asPath!='/#cartRedirect') {
+      setCartMenu(false);  
+    }
+    else
+    {
+      setCartMenu(true);  
+    }
   },[router])
 
   return (

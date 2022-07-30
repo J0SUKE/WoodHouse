@@ -9,18 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.10.0",
+    "@stripe/stripe-js": "^1.34.0",
     "@types/lodash": "^4.14.182",
     "lodash": "^4.17.21",
-    "next": "12.2.3",
+    "next": "^12.2.3",
     "qs": "^6.11.0",
     "react": "18.2.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.3",
     "react-responsive-carousel": "^3.2.23",
     "react-slideshow-image": "^4.0.4",
     "react-spring": "^9.5.2",
     "rehype-raw": "^6.1.1",
-    "sass": "^1.54.0"
+    "sass": "^1.54.0",
+    "stripe": "^9.16.0"
   },
   "devDependencies": {
     "@savvywombat/tailwindcss-grid-areas": "^2.1.0",
