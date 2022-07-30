@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Input({type,label,name,placeholder,error}) 
+export default function Input({type,label,name,placeholder,error,inputVal,setValue,node}) 
 {   
     return (
     <div className='relative mt-[1rem] grow'>
@@ -17,6 +17,13 @@ export default function Input({type,label,name,placeholder,error})
             : 
             'shadow-[0px_0px_0px_2px_#e22120] border-[transparent]'}`}
             placeholder={placeholder}
+            value={inputVal ? inputVal : undefined}
+            onInput={
+                setValue && (e=>{
+                    setValue(e.target.value);
+                })
+            }
+            ref={node}
         />
         {
             error && <div className='text-[.9rem] mt-[.5rem] text-[#e22120] text-[500]'>{error}</div>

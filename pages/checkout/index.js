@@ -16,7 +16,6 @@ export default function CheckoutPage() {
     
     const [clientSecret, setClientSecret] = useState('');
     const {cart} = useContext(cartContext); 
-    const {setSecretIntent} = useContext(checkoutContenxt);
     const router = useRouter();
 
 
@@ -32,8 +31,7 @@ export default function CheckoutPage() {
         })
         .then((res) =>res.json())
         .then((data) =>{
-            setSecretIntent(data.clientSecret);
-            setClientSecret(data.clientSecret)
+            setClientSecret(data.clientSecret);
         })
         .catch(error=>{
             console.log(error);

@@ -8,13 +8,13 @@ import Link from 'next/link';
 import ContactInfo from './ContactInfo';
 import Shipping from './Shipping';
 import { useRouter } from 'next/router';
-import {checkoutStepsNames} from '../../globals/variables';
+import {checkoutStepsNames,shippingPrices} from '../../globals/variables';
 import { Elements } from '@stripe/react-stripe-js';
 
 export default function Checkout({options,stripe,clientSecret}) 
 {    
-    const {checkoutStep} = useContext(checkoutContenxt)
-    const {cart,total} = useContext(cartContext);
+    const {checkoutStep,shippingMethod} = useContext(checkoutContenxt)
+    const {cart,total,subtotal} = useContext(cartContext);
     const router = useRouter();
 
     return (
@@ -82,12 +82,21 @@ export default function Checkout({options,stripe,clientSecret})
                 </div>
                 <div className='flex justify-between mt-[.5rem]'>
                     <p className='text-[#51504a]'>Shipping</p>
-                    <p className='text-[#51504a] text-[.8rem]'>{checkoutStep==1 ? 'Calculated at next step' : ''}</p>
+                    <p className={checkoutStep==1 ? `text-[#51504a] text-[.8rem]` : 'font-[500] text-titles'}>
+                        {checkoutStep==1 ? 'Calculated at next step' : `$${shippingPrices[shippingMethod-1].toFixed(2)}`}
+                    </p>
                 </div>
             </div>
             <div className='flex justify-between border-t border-border mt-[1.5rem] pt-[1rem] items-center'>
                 <div className='text-[#31302d]'>Total</div>
-                <div className='text-[1.4rem] font-[600] text-[#31302d]'>${total.toFixed(2)}</div>
+                <div className='text-[1.4rem] font-[600] text-[#31302d]'>
+                    {
+                        shippingMethod==1 ?
+                        `$${total.toFixed(2)}`
+                        :
+                        `$${(total+shippingPrices[shippingMethod-1]).toFixed(2)}`
+                    }
+                </div>
             </div>
         </div>
     </div>

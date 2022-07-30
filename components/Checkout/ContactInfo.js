@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Input from './Input';
 import Link from 'next/link';
 import {checkoutContenxt} from '../../context/CheckoutContext';
@@ -7,14 +7,27 @@ import {checkoutStepsNames} from '../../globals/variables'
 
 export default function ContactInfo({error}) {
     
-    const {checkoutStep,setCheckoutStep} = useContext(checkoutContenxt);
+    const {checkoutStep,setCheckoutStep,setAddress,setEmail,email,address} = useContext(checkoutContenxt);
     const router = useRouter();
+
+    const [errorEmail,setErrorEmail] = useState();
+    const emailRef = useRef();
+    const [errorAddress,setErrorAddress] = useState();
+    const addressRef = useRef();
 
     const submitContactInfo = (e)=>{
         e.preventDefault();
 
         // verifications...
-        
+        if (email.length==0) {
+            setErrorEmail('Enter a valid email');
+            return;
+        }
+        if (address.length==0) {
+            setErrorAddress('Enter an address');
+            return;
+        }
+
         // si c'est la premiere fois que le user submit le form
         if (checkoutStep==1){
             setCheckoutStep(2);
@@ -24,15 +37,33 @@ export default function ContactInfo({error}) {
 
     }
 
+    useEffect(()=>{
+        console.log(router.query);
+        if (router.query.focus=='email') {
+            emailRef.current.focus();   
+        }
+        if (router.query.focus=='address') {
+            addressRef.current.focus();   
+        }
+    },[router])
+
     return (
     <div className='lg:pr-[10%]'>
         <div className='flex justify-between items-center mt-[2rem] border-t border-border pt-[2rem]'>
             <p className='text-[1.2rem] text-[#31302d] font-[400]'>Contact information</p>
             <p className='text-[#51504a] text-[.9rem]'>Already have an account?<button className='text-[#31302d] ml-[5px]'>Log in</button></p>
-        </div>
-        <Input type={'email'} label={'Email'} placeholder={''} name={'email'}/>
-        
+        </div>        
         <form onSubmit={submitContactInfo}>
+            <Input 
+                type={'email'} 
+                label={'Email'} 
+                placeholder={''} 
+                name={'email'}  
+                error={errorEmail}
+                inputVal={email}
+                setValue={setEmail}
+                node={emailRef}
+            />
             <div className='mt-[2rem]'>
                 <div>
                     <p className='text-[1.2rem] text-[#31302d] font-[400]'>Shipping address</p>
@@ -42,7 +73,16 @@ export default function ContactInfo({error}) {
                     <Input type={'text'} label={'Last name'} placeholder={''} name={'lastname'}/>
                 </div>
                 <div>
-                    <Input type={'text'} label={'Address'} placeholder={''} name={'address'}/>
+                    <Input 
+                        type={'text'} 
+                        label={'Address'} 
+                        placeholder={''} 
+                        name={'address'} 
+                        error={errorAddress}
+                        inputVal={address}
+                        setValue={setAddress}
+                        node={addressRef}
+                    />
                 </div>
                 <div>
                     <Input type={'text'} label={'Apartment, suite, etc. (optional)'} placeholder={''} name={'details'}/>

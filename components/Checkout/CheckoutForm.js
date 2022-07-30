@@ -1,11 +1,12 @@
-import React,{useEffect,useState} from "react";
+import React,{useContext, useEffect,useState} from "react";
 import {
   PaymentElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
 import Link from "next/link";
-import { checkoutStepsNames } from "../../globals/variables";
+import { checkoutStepsNames,shippingMethodsNames } from "../../globals/variables";
+import { checkoutContenxt } from "../../context/CheckoutContext";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -13,6 +14,8 @@ export default function CheckoutForm() {
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const {email,address,shippingMethod} = useContext(checkoutContenxt);
 
   useEffect(() => {
     if (!stripe) {
@@ -80,14 +83,50 @@ export default function CheckoutForm() {
 
   return (
     <div className="mt-[3rem] lg:px-[3rem]">
-        <div className="">
-          <PaymentForm 
-            handleSubmit={handleSubmit} 
-            isLoading={isLoading} 
-            stripe={stripe}
-            elements={elements}
-            message={message}
-          />
+        <div className='border border-border rounded-md px-[1rem] mt-[2rem]'>
+          <div className='border-b border-border flex gap-[2rem] py-[1rem]'>
+            <div className='text-[#6e6c65] text-[.9rem]'>Contact</div>
+            <div className='flex justify-between grow'>
+              <div className='text-[.9rem] text-[#31302d]'>{email}</div>
+              <Link href={`/checkout?step=${checkoutStepsNames[0]}&focus=email`}>
+                <button className='text-[.9rem]'>change</button>
+              </Link>              
+            </div>            
+          </div>
+          <div className='border-b border-border flex gap-[2rem] py-[1rem]'>
+            <div className='text-[#6e6c65] text-[.9rem] whitespace-nowrap'>Ship to</div>
+            <div className='flex justify-between grow'>
+              <div className='text-[.9rem] text-[#31302d]'>{address}</div>
+              <Link href={`/checkout?step=${checkoutStepsNames[0]}&focus=address`}>
+                <button className='text-[.9rem]'>change</button>
+              </Link>              
+            </div>            
+          </div>
+          <div className='flex gap-[2rem] py-[1rem]'>
+            <div className='text-[#6e6c65] text-[.9rem] whitespace-nowrap'>Method</div>
+            <div className='flex justify-between grow'>
+              <div className='text-[.9rem] text-[#31302d]'>{shippingMethodsNames[shippingMethod-1]}</div>
+              <Link href={`/checkout?step=${checkoutStepsNames[1]}`}>
+                <button className='text-[.9rem]'>change</button>
+              </Link>              
+            </div>            
+          </div>
+        </div>
+        
+        <div className="mt-[2rem]">
+          <div>
+            <h2 className='text-[1.2rem] text-[#31302d] font-[400]'>Payment</h2>
+            <p className="text-[.9rem] text-[#51504a]">All transactions are secure and encrypted.</p>
+          </div>
+          <div className="mt-[2rem]">
+            <PaymentForm 
+              handleSubmit={handleSubmit} 
+              isLoading={isLoading} 
+              stripe={stripe}
+              elements={elements}
+              message={message}
+            />
+          </div>          
         </div>
     </div>
   );
@@ -97,7 +136,9 @@ export default function CheckoutForm() {
 function PaymentForm({handleSubmit,isLoading,stripe,elements,message}) {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-        <PaymentElement id="payment-element" />
+        <div className="border border-border rounded-md py-[1rem] px-[1rem] bg-[#EFECDC]">
+          <PaymentElement id="payment-element" />
+        </div>
         <div className="mt-[2rem] text-[#df1b41]">
           {/* Show any error or success messages */}
           {message && <div id="payment-message">{message}</div>}

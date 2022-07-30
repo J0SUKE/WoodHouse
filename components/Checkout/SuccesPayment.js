@@ -10,13 +10,10 @@ export default function SuccesPayment() {
   
     const { width, height } = useWindowSize();
     const {setCart} = useContext(cartContext);
-    const router = useRouter();
-    const {secrentIntent} = useContext(checkoutContenxt);
 
     useEffect(()=>{
-        //setCart([]);
-        console.log(secrentIntent);
-        console.log(router?.query?.payment_intent_client_secret);
+        setCart([]);
+        localStorage.setItem('cart',null);
     },[])
 
     return (

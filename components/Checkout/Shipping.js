@@ -7,7 +7,7 @@ import { shippingPrices } from '../../globals/variables'
 
 export default function Shipping() {
   
-  const {shippingMethod,setShippingMethod,checkoutStep,setCheckoutStep} = useContext(checkoutContenxt);
+  const {shippingMethod,setShippingMethod,checkoutStep,setCheckoutStep,email,address} = useContext(checkoutContenxt);
   const router = useRouter();
 
   const submitShippingInfo = ()=>{
@@ -22,9 +22,29 @@ export default function Shipping() {
   
   return (
     <div className='sm:pr-[10%]'>
+        <div className='border border-border rounded-md px-[1rem] mt-[2rem]'>
+          <div className='flex gap-[2rem] py-[1rem]'>
+            <div className='text-[#6e6c65] text-[.9rem]'>Contact</div>
+            <div className='flex justify-between grow'>
+              <div className='text-[.9rem] text-[#31302d]'>{email}</div>
+              <Link href={`/checkout?step=${checkoutStepsNames[0]}&focus=email`}>
+                <button className='text-[.9rem]'>change</button>
+              </Link>              
+            </div>            
+          </div>
+          <div className='last:border-t border-border flex gap-[2rem] py-[1rem]'>
+            <div className='text-[#6e6c65] text-[.9rem] whitespace-nowrap'>Ship to</div>
+            <div className='flex justify-between grow'>
+              <div className='text-[.9rem] text-[#31302d]'>{address}</div>
+              <Link href={`/checkout?step=${checkoutStepsNames[0]}&focus=address`}>
+                <button className='text-[.9rem]'>change</button>
+              </Link>              
+            </div>            
+          </div>
+        </div>
         <div className='mt-[2rem]'>
             <p className='text-[1.2rem] text-[#31302d] font-[400]'>Shipping method</p>
-        </div>
+        </div>        
         <div className='mt-[2rem] border border-border rounded-md text-[#51504a]'>
             <div className='border-b border-border p-[1rem]'>
               <div className='flex justify-between items-center'>

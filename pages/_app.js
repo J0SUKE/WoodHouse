@@ -8,11 +8,11 @@ function MyApp({ Component, pageProps }) {
   return( 
           <CollectionsContext>
             <MenuContext>
-              <CartContext>
-                <CheckoutContext>
-                  <Component {...pageProps} />
-                </CheckoutContext>                
-              </CartContext>              
+              <CheckoutContext>
+                <CartContext>
+                    <Component {...pageProps} />
+                </CartContext>              
+              </CheckoutContext>                
             </MenuContext>            
           </CollectionsContext>          
       )

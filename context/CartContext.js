@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import {checkoutContenxt} from './CheckoutContext';
+import { shippingPrices } from '../globals/variables';
 
 export const cartContext = React.createContext();
 
@@ -7,6 +9,7 @@ export default function CartContext({children}) {
     const [cartMenu,setCartMenu] = useState(false);
     const [cart,setCart] = useState([]);
     const [total,setTotal] = useState(0);
+    const {shippingMethod} = useContext(checkoutContenxt);
     let firstLoadPassed = useRef(false);
 
     function addTocart(newitem) {
@@ -81,7 +84,6 @@ export default function CartContext({children}) {
 
     },[cart])
 
-    
     return <cartContext.Provider value={{cartMenu,setCartMenu,cart,setCart,addTocart,removeFromCart,setQty,total}}>
     {children}
     </cartContext.Provider>

@@ -38,34 +38,23 @@ export default function Cart({closeCartMenu,cartMenuRef}) {
 function CartEmpty() {
     
     const {collectionsValue} = useContext(collectionContext);
-    
+
     return (
         <div className='flex justify-center items-center h-[100%] w-[100%] flex-col p-[3rem]'>
             <h1 className='uppercase text-[1.8rem] font-[700] tracking-[-0.1rem] text-titles text-center'>nothing to see here !</h1>
             <p className='my-[1rem] text-[1.1rem] text-titles'>Let&apos;s fix that</p>
             <ul className='w-[100%] flex flex-col items-center max-w-[300px]'>
-                <button
-                    className='block w-[100%] my-[.5rem] btnborder'
-                >
-                    <Link href={`/collections/all`}>
-                        <a className=' block uppercase font-[700] tracking-[-0.05rem] py-[.7rem] text-titles'>
-                            Shop all
-                        </a>
-                    </Link>
-                </button>
+                <Link href={`/collections/all`}>
+                    <a className='block w-[100%] my-[.5rem] btnborder uppercase font-[700] tracking-[-0.05rem] py-[.7rem] text-titles text-center'>Shop all</a>
+                </Link>                
                 {
                     [collectionsValue[0],collectionsValue[1]].map(item=>{
                         return (
-                            <button
-                                key={item.id}
-                                className='block py-[.7rem] w-[100%] my-[.5rem] btnborder'
-                            >
-                                <Link href={`/collections/${item.attributes.slug}`}>
-                                    <a className='uppercase font-[700] tracking-[-0.05rem] text-titles'>
-                                        {item.attributes.name}
-                                    </a>
-                                </Link>
-                            </button>
+                            <Link key={item.id} href={`/collections/${item.attributes.name}`}>
+                                <a className='block w-[100%] my-[.5rem] btnborder uppercase font-[700] tracking-[-0.05rem] py-[.7rem] text-titles text-center'>
+                                    {item.attributes.name}
+                                </a>
+                            </Link>
                         )
                     })
                 }                
