@@ -17,7 +17,7 @@ export default function Input({type,label,name,placeholder,error,inputVal,setVal
             : 
             'shadow-[0px_0px_0px_2px_#e22120] border-[transparent]'}`}
             placeholder={placeholder}
-            value={inputVal ? inputVal : undefined}
+            value={inputVal}    
             onInput={
                 setValue && (e=>{
                     setValue(e.target.value);

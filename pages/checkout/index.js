@@ -18,11 +18,13 @@ export default function CheckoutPage() {
     const {cart} = useContext(cartContext); 
     const router = useRouter();
 
+    useEffect(()=>{
+        if (cart.length==0) router.push('/');
+    },[])
 
     useEffect(() => 
     {
         // Create PaymentIntent as soon as the page loads
-        if (cart.length==0) router.push('/');
         
         fetch("/api/create-payment-intent", {
             method: "POST",

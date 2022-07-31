@@ -1,19 +1,18 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import {checkoutContenxt} from './CheckoutContext';
 import { shippingPrices } from '../globals/variables';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export const cartContext = React.createContext();
 
 export default function CartContext({children}) {
   
     const [cartMenu,setCartMenu] = useState(false);
-    const [cart,setCart] = useState([]);
+    const [cart,setCart] = useLocalStorage('cart',[]);
     const [total,setTotal] = useState(0);
     const {shippingMethod} = useContext(checkoutContenxt);
-    let firstLoadPassed = useRef(false);
 
     function addTocart(newitem) {
-        firstLoadPassed.current=true;
         setCart(items=>{
             if (items.filter(item=>item.id==newitem.id).length!=0)
             {
@@ -42,12 +41,10 @@ export default function CartContext({children}) {
     }
 
     function removeFromCart(elementToRemove) {
-        firstLoadPassed.current=true;
         setCart(items=>items.filter(item=>item.id!=elementToRemove.id));
     }
 
     function setQty(elementTomodify,newQty) {
-        firstLoadPassed.current=true;
         setCart(items=>items.map(item=>{
             if (item.id!=elementTomodify.id) return item
             else
@@ -76,11 +73,6 @@ export default function CartContext({children}) {
             t+=element.attributes.price*element.qty;
         });
         setTotal(t);
-
-        //storage       
-        if (firstLoadPassed.current) {
-            localStorage.setItem('cart',JSON.stringify(cart));      
-        }
 
     },[cart])
 
