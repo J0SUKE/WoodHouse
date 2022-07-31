@@ -45,7 +45,8 @@ export default function AllPage({products,collections}) {
       collections=collections.data;
       
       let products = await fetchAPI(`/products`,{
-        populate:'*'
+        populate:'*',
+        sort:['id:asc']
       });
       
       products=products.data;
