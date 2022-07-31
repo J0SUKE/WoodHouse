@@ -127,7 +127,6 @@ export default function ContactInfo({error}) {
     <div className='lg:pr-[10%]'>
         <div className='flex justify-between items-center mt-[2rem] border-t border-border pt-[2rem]'>
             <p className='text-[1.2rem] text-[#31302d] font-[400]'>Contact information</p>
-            <p className='text-[#51504a] text-[.9rem]'>Already have an account?<button className='text-[#31302d] ml-[5px]'>Log in</button></p>
         </div>        
         <form onSubmit={submitContactInfo}>
             <Input 
