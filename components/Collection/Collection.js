@@ -14,7 +14,7 @@ export default function Collection({name,image,desc,products,collections}) {
     const [items,setItems] = useState(products);
     
     return (
-    <div className='absolute top-[88px] bg-bg_primary w-[100%]'>
+    <div className='relative pt-[88px] bg-bg_primary w-[100%]'>
         <div className='relative'>
             <div className='relative aspect-[3/1.1] mt-[30px]'>
                 <Image

@@ -29,7 +29,7 @@ export default function Product({product,other}) {
     },[])
 
     return (
-    <div className='absolute w-[100%] bg-bg_primary mt-[88px]'>
+    <div className='relatiev w-[100%] bg-bg_primary pt-[88px]'>
         <div className='flex flex-col lg:flex-row justify-start items-start'>
             {
                 mobile ?
@@ -73,7 +73,7 @@ export default function Product({product,other}) {
                 </div>                
             </div>
         </div>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-[6rem] border-t border-border border-solid'> 
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-[6rem] border-t border-b border-border border-solid place-items-stretch'> 
             <div className='p-[1rem] border-r border-border border-solid'>
                 <h1 className='text-[clamp(1.5rem,5vw,3rem)] font-[700] uppercase text-titles'>You May Also Like</h1>
             </div>
@@ -82,12 +82,12 @@ export default function Product({product,other}) {
                 (other.length<=3 ?  other : [other[0],other[1],other[2]]).map(item=>{
                     return (
                         <div 
-                            className='aspect-[1/1.25] border-r border-border border-solid'
+                            className='border-r border-border border-solid'
                             key={item.id}
                         >
                             <Link href={`/products/${item.attributes.slug}`}>
                                 <a>
-                                    <div className='relative h-[88%]'>
+                                    <div className='relative aspect-[1/1.25]'>
                                         <Image
                                             src={getStrapiMedia(item.attributes.images.data[0])}
                                             alt=''

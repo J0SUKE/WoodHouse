@@ -46,6 +46,10 @@ module.exports = {
           'div11',
           'div12',
         ],
+        'footer' :
+        [
+          'div1 div1 div2'
+        ]
       },
       keyframes: {
         appear: {

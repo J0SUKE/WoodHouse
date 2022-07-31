@@ -22,7 +22,7 @@ export default function Home({hero,favorites,housegood}) {
     },[])
 
   return (
-    <div className='absolute w-[100%] z-0 bg-bg_primary'>
+    <div className='relative w-[100%] z-0 bg-bg_primary'>
         <TopCaroussel hero={hero}/>
         <div className='flex flex-col lg:flex-row bg-bg_primary'>
                  <div className='relative w-[100%] lg:w-[400px] border-r-[1px] border-solid border-border'>
@@ -54,7 +54,7 @@ export default function Home({hero,favorites,housegood}) {
                                 objectFit='cover'
                             />
                             <Image
-                                src={getStrapiMedia(hero[0].attributes.product.data.attributes.images.data[3])}
+                                src={getStrapiMedia(hero[0].attributes.product.data.attributes.images.data[1])}
                                 alt=''
                                 layout='fill'
                                 className='opacity-[0] hover:opacity-[1] transition-opacity duration-[400ms] z-2'

@@ -5,6 +5,7 @@ import Cart from "../Cart/Cart";
 import {menuContext} from '../../context/MenuContext';
 import {cartContext} from "../../context/CartContext";
 import {useRouter} from 'next/router'
+import Footer from "../Footer/Footer";
 
 export default function Layout({children}) {
   
@@ -41,6 +42,7 @@ export default function Layout({children}) {
           menu && <Menu/>
         }        
         {children}
+        <Footer/>
         {
           cartMenu &&
           <div 
