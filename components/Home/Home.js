@@ -449,7 +449,7 @@ function BottomLinks() {
         <div className='grid grid-cols-3'>
             <div className='relative aspect-[1/1.24]'>
                 <Image
-                    src={'/images/products/d_three_up_one.jpg'}
+                    src={'/images/d_three_up_one.jpg'}
                     alt=''
                     layout='fill'
                     objectFit='cover'
@@ -467,7 +467,7 @@ function BottomLinks() {
             </div>
             <div className='relative aspect-[1/1.24]'>
                 <Image
-                    src={'/images/products/d_three_up_two.jpg'}
+                    src={'/images/d_three_up_two.jpg'}
                     alt=''
                     layout='fill'
                     objectFit='cover'
@@ -485,7 +485,7 @@ function BottomLinks() {
             </div>
             <div className='relative aspect-[1/1.24]'>
                 <Image
-                    src={'/images/products/d_three_up_three.jpg'}
+                    src={'/images/d_three_up_three.jpg'}
                     alt=''
                     layout='fill'
                     objectFit='cover'
