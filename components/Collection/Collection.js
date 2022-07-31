@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import {getStrapiMedia} from '../../lib/media'
 import Link from 'next/link'
-import React,{ useContext, useState } from 'react'
+import React,{ useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 
 const sortContext = React.createContext();
@@ -12,7 +13,14 @@ export default function Collection({name,image,desc,products,collections}) {
     const [showSort,setShowSort] = useState(false);
     const [sort,setSort] = useState(null);
     const [items,setItems] = useState(products);
-    
+    const router = useRouter()
+
+    useEffect(()=>{
+        //console.log(items.map(item=>item.attributes.title));
+        setItems(products);
+        setSort(null);
+    },[router])
+
     return (
     <div className='relative pt-[88px] bg-bg_primary w-[100%]'>
         <div className='relative'>
