@@ -39,14 +39,14 @@ export default function AllPage({products,collections}) {
   export async function getStaticProps() 
   {
       let collections = await fetchAPI(`/collections`,{
-        populate:['image','products','products.images'],
+        populate:'*',
+        sort:['id:asc']
         });
       
       collections=collections.data;
       
       let products = await fetchAPI(`/products`,{
         populate:'*',
-        sort:['id:asc']
       });
       
       products=products.data;
