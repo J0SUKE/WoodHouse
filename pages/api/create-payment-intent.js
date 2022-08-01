@@ -14,7 +14,7 @@ const calculateOrderAmount = (items) => {
 };
 
 export default async function handler(req, res) {
-  const { items,email } = req.body;
+  const { items } = req.body;
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
@@ -23,7 +23,6 @@ export default async function handler(req, res) {
       automatic_payment_methods: {
         enabled: false,
       },
-      receipt_email: email,
     });
 
     res.send({

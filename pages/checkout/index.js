@@ -29,7 +29,7 @@ export default function CheckoutPage() {
         fetch("/api/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({items:cart,email:'chakib3500@gmail.com'}),
+            body: JSON.stringify({items:cart}),
         })
         .then((res) =>res.json())
         .then((data) =>{
