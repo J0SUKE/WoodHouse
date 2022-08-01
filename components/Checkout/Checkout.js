@@ -91,7 +91,7 @@ export default function Checkout({options,stripe,clientSecret})
                 <div className='text-[#31302d]'>Total</div>
                 <div className='text-[1.4rem] font-[600] text-[#31302d]'>
                     {
-                        shippingMethod==1 ?
+                        checkoutStep==1 ?
                         `$${total.toFixed(2)}`
                         :
                         `$${(total+shippingPrices[shippingMethod-1]).toFixed(2)}`
