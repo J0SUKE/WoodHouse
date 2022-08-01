@@ -34,7 +34,7 @@ export default function Checkout({options,stripe,clientSecret})
             </div>
             <div>
                 {
-                    clientSecret &&
+                    clientSecret ?
                     <Elements options={options} stripe={stripe}>
                         {
                             router?.asPath.startsWith(`/checkout?step=${checkoutStepsNames[0]}`) ?
@@ -45,8 +45,17 @@ export default function Checkout({options,stripe,clientSecret})
                             :
                             <CheckoutForm/>
                         }                        
-                    </Elements>                    
-                }
+                    </Elements>      
+                    :  
+                    <div 
+                        className='border-2 rounded-md mr-[0] lg:mr-[10%] px-[1rem] mt-[2rem] flex flex-col items-center py-[1rem]'
+                    >
+                        <p className='mt-[1rem]'>Loading Checkout data</p>
+                        <div className='my-[1rem]'>
+                            <div className="lds-dual-ring black-loader"></div>
+                        </div>                    
+                    </div>            
+                }                
             </div>
         </div>
         <div className='w-[100%] lg:w-[45%] min-h-[100%] lg:border-l border-solid border-border pb-[6rem] lg:pb-0 lg:px-[3rem]'>

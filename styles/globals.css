@@ -102,6 +102,12 @@ a {
   border-color: #fff transparent #fff transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+.black-loader.lds-dual-ring:after
+{
+  border: 3px solid black;
+  border-color: black transparent black transparent;
+}
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);
