@@ -7,7 +7,7 @@ const calculateOrderAmount = (items) => {
   // people from directly manipulating the amount on the client
   let total = 0;
   items.forEach(element => {
-    total+=element.attributes.price * element.qty;
+    total+=element.attributes.price *100* element.qty;
   });  
 
   return total;
