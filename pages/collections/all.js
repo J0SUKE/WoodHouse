@@ -53,6 +53,6 @@ export default function AllPage({products,collections}) {
       
       return {
           // Passed to the page component as props
-          props: { products,collections },
+          props: { products,collections },revalidate: 10
       }
   }

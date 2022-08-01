@@ -61,6 +61,7 @@ export async function getStaticProps() {
 
 
   return{
-    props:{hero,favorites,housegood,collections}
+    props:{hero,favorites,housegood,collections},
+    revalidate: 10
   }
 }

@@ -79,6 +79,6 @@ export async function getStaticProps({params})
     
     return {
         // Passed to the page component as props
-        props: { collection,collections },
+        props: { collection,collections },revalidate: 10
     }
 }
