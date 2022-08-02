@@ -388,7 +388,7 @@ function BottomCaroussel() {
             >
                 <div className='relative aspect-[1/1.24] each-slide-effect'>
                 <Image
-                    src={'/images/products/d_three_up_one.jpg'}
+                    src={'/images/d_three_up_one.jpg'}
                     alt=''
                     layout='fill'
                     objectFit='cover'
@@ -406,7 +406,7 @@ function BottomCaroussel() {
                 </div>
                 <div className='relative aspect-[1/1.24] each-slide-effect'>
                     <Image
-                        src={'/images/products/d_three_up_two.jpg'}
+                        src={'/images/d_three_up_two.jpg'}
                         alt=''
                         layout='fill'
                         objectFit='cover'
@@ -424,7 +424,7 @@ function BottomCaroussel() {
                 </div>
                 <div className='relative aspect-[1/1.24] each-slide-effect'>
                     <Image
-                        src={'/images/products/d_three_up_three.jpg'}
+                        src={'/images/d_three_up_three.jpg'}
                         alt=''
                         layout='fill'
                         objectFit='cover'
