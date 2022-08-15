@@ -122,14 +122,14 @@ function Infopanel({content,value,menu,setMenu}) {
     
     return (
         <div 
-            className='relative border-b border-solid border-border py-[.8rem] bg-bg_primary overflow-hidden'
+            className='relative border-b border-solid border-border bg-bg_primary overflow-hidden'
         >
             <button 
-                className='uppercase text-[1.1rem] tracking-[0.1rem] font-[500]'
+                className='uppercase text-[1.1rem] tracking-[0.1rem] py-[1rem] font-[500]'
                 onClick={()=>{setMenu(menu=>menu != `${value}` ?`${value}` : null)}}
             >{value} {menu==`${value}` ? '-' : '+'}</button>
             <div 
-                className={`text-[.9rem] ${menu==`${value}` ? `py-[1rem] h-[unset]` :'py-[0] h-[0]'} overflow-hidden`}
+                className={`text-[.9rem] ${menu==`${value}` ? `pb-[2rem] max-h-[1050px]` :'pb-[0] max-h-[0]'} overflow-hidden transition-[all] duration-500`}
             >
                 <ReactMarkdown skipHtml={false} rehypePlugins={[rehypeRaw]} >
                     {content}
