@@ -16,7 +16,6 @@ export default function Collection({name,image,desc,products,collections}) {
     const router = useRouter()
 
     useEffect(()=>{
-        //console.log(items.map(item=>item.attributes.title));
         setItems(products);
         setSort(null);
     },[router])
@@ -30,6 +29,7 @@ export default function Collection({name,image,desc,products,collections}) {
                     alt=''
                     layout='fill'
                     objectFit='cover'
+                    priority={true}
                 />
             </div>
             <LinksTab collections={collections} name={name}/>
@@ -131,6 +131,7 @@ function ProductsGallery({products,name,desc}) {
                                         alt=""
                                         layout='fill'
                                         objectFit='cover'
+                                        priority={true}
                                     />
                                     <Image
                                         src={getStrapiMedia(item.attributes.images.data[1])}
@@ -138,6 +139,7 @@ function ProductsGallery({products,name,desc}) {
                                         layout='fill'
                                         objectFit='cover'
                                         className='absolute z-2 opacity-0 hover:opacity-[1] transition-opacity duration-500'
+                                        priority={true}
                                     />
                                 </a>
                             </Link>
