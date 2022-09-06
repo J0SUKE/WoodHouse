@@ -154,6 +154,7 @@ function ImagesGallery({product}) {
                                     alt=''
                                     layout='fill'
                                     objectFit='cover'
+                                    priority={true}
                                 />
                             </div>
                         )
@@ -208,6 +209,7 @@ function Carossel({product}) {
                                     alt=''
                                     layout='fill'
                                     objectFit='cover'
+                                    priority={true}
                                 />
                             </div>   
                         )

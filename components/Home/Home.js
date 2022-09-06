@@ -166,6 +166,7 @@ function HouseGood({item}) {
                     alt=""
                     layout='fill'
                     objectFit='cover'
+                    priority={true}
                 />
                 <Image
                     src={getStrapiMedia(images.data[1])}
@@ -173,6 +174,7 @@ function HouseGood({item}) {
                     layout='fill'
                     objectFit='cover'
                     className='absolute z-2 opacity-0 hover:opacity-[1] transition-opacity duration-500'
+                    priority={true}
                 />
             </a>
             </Link>
@@ -392,6 +394,7 @@ function BottomCaroussel() {
                     alt=''
                     layout='fill'
                     objectFit='cover'
+                    priority={true}
                 />
                 <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
                     <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
@@ -410,6 +413,7 @@ function BottomCaroussel() {
                         alt=''
                         layout='fill'
                         objectFit='cover'
+                        priority={true}
                     />
                     <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
                         <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> ASHTRAYS</h1>
@@ -428,6 +432,7 @@ function BottomCaroussel() {
                         alt=''
                         layout='fill'
                         objectFit='cover'
+                        priority={true}
                     />
                     <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
                         <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3.5rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> LIGHTERS</h1>
