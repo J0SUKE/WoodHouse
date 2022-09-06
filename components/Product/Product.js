@@ -93,6 +93,7 @@ export default function Product({product,other}) {
                                             alt=''
                                             layout='fill'
                                             objectFit='cover'
+                                            priority={true}
                                         />
                                         <Image
                                             src={getStrapiMedia(item.attributes.images.data[1])}
@@ -100,6 +101,7 @@ export default function Product({product,other}) {
                                             layout='fill'
                                             objectFit='cover'
                                             className='absolute z-2 opacity-0 hover:opacity-[1] transition-opacity duration-500'
+                                            priority={true}
                                         />
                                     </div>
                                 </a>

@@ -33,6 +33,7 @@ export default function Home({hero,favorites,housegood}) {
                             alt="" 
                             className='opacity-[0.4]'
                             layout='fill'
+                            priority={true}
                         />
                     </div>
                     
@@ -52,6 +53,7 @@ export default function Home({hero,favorites,housegood}) {
                                 layout='fill'
                                 className='z-1'
                                 objectFit='cover'
+                                priority={true}
                             />
                             <Image
                                 src={getStrapiMedia(hero[0].attributes.product.data.attributes.images.data[1])}
@@ -59,6 +61,7 @@ export default function Home({hero,favorites,housegood}) {
                                 layout='fill'
                                 className='opacity-[0] hover:opacity-[1] transition-opacity duration-[400ms] z-2'
                                 objectFit='cover'
+                                priority={true}
                             />
                             </a>
                         </Link>
@@ -81,6 +84,7 @@ export default function Home({hero,favorites,housegood}) {
                 alt=''
                 layout='fill'
                 objectFit='cover'
+                priority={true}
             />
             <div className='absolute z-2 w-[100%] h-[100%] flex flex-col gap-[1rem] items-center justify-center'>
                 <h1 className='text-[clamp(2rem,4vw,3rem)] px-[2rem] uppercase text-bg_primary font-[700] tracking-[-0.2rem] text-center'>The WoodHouse Favorite Finder</h1>
@@ -103,6 +107,7 @@ export default function Home({hero,favorites,housegood}) {
                 alt=''
                 layout='fill'
                 objectFit='cover'
+                priority={true}
             />
         </div>
     </div>
@@ -117,6 +122,7 @@ function SlideContent({h1,p,btn,img,slug}) {
                 alt=''
                 layout='fill'
                 objectFit='cover'
+                priority={true}
             />
             <div className='absolute z-[2] pt-[7%] w-[100%] h-[100%] flex flex-col items-center justify-center gap-[.5rem]'>
                 <h1 className="tracking-[-0.2rem] text-bg_primary text-[3rem] uppercase font-bold">{h1}</h1>
@@ -350,6 +356,7 @@ function Favorites({favorites}) {
                                     alt=""
                                     layout='fill'
                                     objectFit='cover'
+                                    priority={true}
                                 />
                                 <Image
                                     src={getStrapiMedia(attributes.images.data[1])}
@@ -357,6 +364,7 @@ function Favorites({favorites}) {
                                     layout='fill'
                                     objectFit='cover'
                                     className='absolute z-2 opacity-0 hover:opacity-[1] transition-opacity duration-500'
+                                    priority={true}
                                 />
                             </a>
                             </Link>
@@ -458,6 +466,7 @@ function BottomLinks() {
                     alt=''
                     layout='fill'
                     objectFit='cover'
+                    priority={true}
                 />
                 <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
                     <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> lifestyle</h1>
@@ -476,6 +485,7 @@ function BottomLinks() {
                     alt=''
                     layout='fill'
                     objectFit='cover'
+                    priority={true}
                 />
                 <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
                     <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> ASHTRAYS</h1>
@@ -494,6 +504,7 @@ function BottomLinks() {
                     alt=''
                     layout='fill'
                     objectFit='cover'
+                    priority={true}
                 />
                 <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center gap-[1rem]'>
                     <h1 className='text-bg_primary text-[clamp(1.2rem,4.5vw,3rem)] font-[700] uppercase text-center tracking-[-0.2rem]'>Shop<br/> LIGHTERS</h1>
