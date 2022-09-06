@@ -7,7 +7,7 @@ import {cartContext} from "../../context/CartContext";
 import {useRouter} from 'next/router'
 import Footer from "../Footer/Footer";
 
-export default function Layout({children}) {
+export default function Layout({children,home}) {
   
   const {menu,setMenu} = useContext(menuContext);
   const {cartMenu,setCartMenu} = useContext(cartContext);
@@ -37,7 +37,7 @@ export default function Layout({children}) {
 
   return (
     <main className="bg-bg_primary" ref={wrapper}>
-        <Header setMenu={setMenu} wrapper={wrapper}/>
+        <Header setMenu={setMenu} wrapper={wrapper} home={home}/>
         {
           menu && <Menu/>
         }        

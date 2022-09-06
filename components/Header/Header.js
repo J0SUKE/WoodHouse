@@ -7,14 +7,13 @@ import { useRouter } from 'next/router'
 import {menuContext} from '../../context/MenuContext';
 import {cartContext} from "../../context/CartContext";
 
-export default function Header() {
+export default function Header({home}) {
     
     const router = useRouter();
     const {menu,setMenu,menu_image,setMenu_image} = useContext(menuContext);
     const {setCartMenu,cart} = useContext(cartContext);
-    const path = useRef(router.asPath);
     const menuval = useRef(menu);
-    const [scroll,setScroll] = useState(router.asPath == '/' ? false : true);
+    const [scroll,setScroll] = useState(home ? false : true);
 
 
     function handleScroll() {
@@ -22,7 +21,7 @@ export default function Header() {
         if (scrollTop>0 && !menuval.current) {
             setScroll(true);
         }
-        else if(scrollTop<=0 && !menuval.current && (path.current == '/' || router.asPath=='/#cartRedirect'))
+        else if(scrollTop<=0 && !menuval.current && home)
         {
             setScroll(false);
         }
@@ -33,9 +32,8 @@ export default function Header() {
     },[])
 
     useEffect(()=>{
-        path.current = router.asPath;
         setMenu(false);
-        if (router.asPath != '/' && router.asPath!='/#cartRedirect') 
+        if (!home && router.asPath!='/#cartRedirect') 
         {
             setScroll(true);
         }
@@ -48,7 +46,7 @@ export default function Header() {
         const {scrollTop} = document.documentElement;
         setMenu_image(null);
         if (menu) setScroll(true);
-        else if((path.current!='/' && router.asPath!='/#cartRedirect') || scrollTop>0) setScroll(true)
+        else if((router.asPath!='/' && router.asPath!='/#cartRedirect') || scrollTop>0) setScroll(true)
         else setScroll(false);
     },[menu])
 
